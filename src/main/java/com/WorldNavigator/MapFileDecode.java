@@ -43,8 +43,8 @@ public class MapFileDecode {
         if(resources.length!=1){
             throw new IllegalArgumentException("map file not in maps directory.");
         }
-        File mapFile = File.createTempFile(resources[0].getFilename(), ".txt");
-        scanner = new Scanner(mapFile);
+        InputStream inputStream = resources[0].getInputStream();
+        scanner = new Scanner(inputStream);
         return this;
     }
 

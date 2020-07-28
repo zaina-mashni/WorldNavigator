@@ -46,13 +46,7 @@ public class MapFileDecode {
             throw new IllegalArgumentException("map file not in maps directory.");
         }
         InputStream inputStream = resources[0].getInputStream();
-        File mapFile = File.createTempFile(resources[0].getFilename(), ".txt");
-        try {
-            FileUtils.copyInputStreamToFile(inputStream, mapFile);
-            scanner = new Scanner(mapFile);
-        } finally {
-            IOUtils.closeQuietly(inputStream);
-        }
+        scanner = new Scanner(inputStream);
         return this;
     }
 

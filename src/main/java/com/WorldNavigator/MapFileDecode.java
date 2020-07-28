@@ -36,7 +36,7 @@ public class MapFileDecode {
 
     public MapFileDecode setMapFile(String mapFile) {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        InputStream is = loader.getResourceAsStream("Maps/"+mapFile);
+        InputStream is = loader.getResourceAsStream("./Maps/"+mapFile);
         scanner = new Scanner(is);
         return this;
     }

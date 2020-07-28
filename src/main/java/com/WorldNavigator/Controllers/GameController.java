@@ -88,7 +88,7 @@ public class GameController {
         MapFilesReply reply = new MapFilesReply();
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         try (
-                final InputStream is = loader.getResourceAsStream("Maps");
+                final InputStream is = loader.getResourceAsStream("./Maps");
                 final InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
                 final BufferedReader br = new BufferedReader(isr)) {
             reply.mapFiles = br.lines()

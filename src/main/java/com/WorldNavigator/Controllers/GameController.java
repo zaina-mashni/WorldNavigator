@@ -89,7 +89,7 @@ public class GameController {
                 final InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
                 final BufferedReader br = new BufferedReader(isr)) {
                     reply.mapFiles = br.lines()
-                    .map(l -> "Maps" + "/" + l)
+                    .map(l -> "./Maps" + "/" + l)
                     .map(loader::getResource).filter(Objects::nonNull).map(file -> {
                         int slashIndex = file.getPath().lastIndexOf('/');
                         int dotIndex = file.getPath().lastIndexOf('.', slashIndex);

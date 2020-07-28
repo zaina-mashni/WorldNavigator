@@ -94,7 +94,6 @@ public class GameController {
         for(Resource r: resources) {
             fileNames.add(r.getFilename());
         }
-
         MapFilesReply reply = new MapFilesReply();
         reply.mapFiles=fileNames;
         return new ResponseEntity(reply, HttpStatus.OK);

@@ -9,6 +9,9 @@ import com.WorldNavigator.Factories.ObjectFactory;
 import com.WorldNavigator.Factories.RoomFactory;
 import com.WorldNavigator.Features.*;
 import com.WorldNavigator.Services.GameService;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -30,14 +33,18 @@ public class MapFileDecode {
         this.itemFactory = new ItemFactory();
         this.roomFactory = new RoomFactory();
         this.objectFactory = new ObjectFactory();
-        this.gameService=gameService;
-        gameControl = new GameControl(worldName,admin);
+        this.gameService = gameService;
+        gameControl = new GameControl(worldName, admin);
     }
 
-    public MapFileDecode setMapFile(String mapFile) {
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        InputStream is = loader.getResourceAsStream("./Maps/"+mapFile);
-        scanner = new Scanner(is);
+    public MapFileDecode setMapFile(String mapFileName) throws IOException {
+        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        Resource[] resources = resolver.getResources("classpath*:Maps/"+mapFileName);
+        if(resources.length!=1){
+            throw new IllegalArgumentException("map file not in maps directory.");
+        }
+        File mapFile = File.createTempFile(resources[0].getFilename(), ".txt");
+        scanner = new Scanner(mapFile);
         return this;
     }
 
@@ -154,7 +161,7 @@ public class MapFileDecode {
         rooms = new ArrayList<>(noOfRooms);
         for (int i = 0; i < noOfRooms; i++) {
             String roomStatus = scanner.next();
-            Room room = roomFactory.buildRoom(roomStatus,gameService,i);
+            Room room = roomFactory.buildRoom(roomStatus, gameService, i);
             rooms.add(room);
         }
     }

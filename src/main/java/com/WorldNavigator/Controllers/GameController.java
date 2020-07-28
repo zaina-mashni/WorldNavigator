@@ -89,7 +89,7 @@ public class GameController {
         LoginRequest request = JSONDecode.decodeJsonString(jsonRequest,LoginRequest.class);
         //check if user logged in.
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        Resource[] resources = resolver.getResources("classpath*:Maps/*.json");
+        Resource[] resources = resolver.getResources("classpath*:Maps/*");
         List<String> fileNames = new ArrayList<>();
         for(Resource r: resources) {
             fileNames.add(r.getFilename());

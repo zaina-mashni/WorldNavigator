@@ -84,7 +84,6 @@ public class GameController {
         LoginRequest request = JSONDecode.decodeJsonString(jsonRequest,LoginRequest.class);
         //check if user logged in
         MapFilesReply reply = new MapFilesReply();
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
         try (
                 final InputStream is = getClass().getResource("/Maps").openStream();
                 final InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);

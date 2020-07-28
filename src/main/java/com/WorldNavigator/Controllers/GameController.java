@@ -85,11 +85,11 @@ public class GameController {
         //check if user logged in
         MapFilesReply reply = new MapFilesReply();
         try (
-                final InputStream is = getClass().getResource("/BOOT-INF/classes/Maps").openStream();
+                final InputStream is = getClass().getResource("/Maps").openStream();
                 final InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
                 final BufferedReader br = new BufferedReader(isr)) {
                     reply.mapFiles = br.lines()
-                    .map(l -> "/BOOT-INF/classes/Maps/" + l)
+                    .map(l -> "/Maps/" + l)
                    /* .map(r -> getClass().getResource(r)).filter(Objects::nonNull)*/.map(file -> {
                         int slashIndex = file.lastIndexOf('/');
                         int dotIndex = file.lastIndexOf('.', slashIndex);

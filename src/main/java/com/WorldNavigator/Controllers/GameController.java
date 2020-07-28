@@ -82,7 +82,7 @@ public class GameController {
     @ResponseBody
     public ResponseEntity<MapFilesReply> getMapFiles(@RequestBody String jsonRequest) throws IOException {
         LoginRequest request = JSONDecode.decodeJsonString(jsonRequest,LoginRequest.class);
-        //check if logged in
+        //check if user logged in
         MapFilesReply reply = new MapFilesReply();
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         try (

@@ -17,10 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -91,15 +88,20 @@ public class GameController {
                 final InputStream is = loader.getResourceAsStream("./Maps");
                 final InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
                 final BufferedReader br = new BufferedReader(isr)) {
-            reply.mapFiles = br.lines()
+                    reply.mapFiles = br.lines()
                     .map(l -> "Maps" + "/" + l)
-                    .map(r -> loader.getResource(r)).map(f -> f.toString())
+                    .map(loader::getResource).filter(Objects::nonNull).map(file -> {
+                        int slashIndex = file.getPath().lastIndexOf('/');
+                        int dotIndex = file.getPath().lastIndexOf('.', slashIndex);
+                        if (dotIndex == -1) {
+                            return file.getPath().substring(slashIndex + 1);
+                        } else {
+                            return file.getPath().substring(slashIndex + 1, dotIndex);
+                        }
+                    })
                     .collect(Collectors.toList());
+            return new ResponseEntity(reply, HttpStatus.OK);
         }
-        URL url = loader.getResource("Maps");
-        String path = url.getPath();
-        reply.mapFiles= Arrays.stream(Objects.requireNonNull(new File(path).listFiles())).map(File::getName).collect(Collectors.toList());
-        return new ResponseEntity(reply, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/api/game/quit", method = RequestMethod.POST)

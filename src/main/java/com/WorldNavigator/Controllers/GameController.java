@@ -90,13 +90,13 @@ public class GameController {
                 final BufferedReader br = new BufferedReader(isr)) {
                     reply.mapFiles = br.lines()
                     .map(l -> "/Maps" + "/" + l)
-                    .map(r -> getClass().getResource(r)).filter(Objects::nonNull).map(file -> {
-                        int slashIndex = file.getPath().lastIndexOf('/');
-                        int dotIndex = file.getPath().lastIndexOf('.', slashIndex);
+                   /* .map(r -> getClass().getResource(r)).filter(Objects::nonNull)*/.map(file -> {
+                        int slashIndex = file.lastIndexOf('/');
+                        int dotIndex = file.lastIndexOf('.', slashIndex);
                         if (dotIndex == -1) {
-                            return file.getPath().substring(slashIndex + 1);
+                            return file.substring(slashIndex + 1);
                         } else {
-                            return file.getPath().substring(slashIndex + 1, dotIndex);
+                            return file.substring(slashIndex + 1, dotIndex);
                         }
                     })
                     .collect(Collectors.toList());

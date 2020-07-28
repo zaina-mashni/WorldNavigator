@@ -86,12 +86,12 @@ public class GameController {
         MapFilesReply reply = new MapFilesReply();
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         try (
-                final InputStream is = getClass().getResource("src/main/resources/Maps").openStream();
+                final InputStream is = getClass().getResource("/Maps").openStream();
                 final InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
                 final BufferedReader br = new BufferedReader(isr)) {
                     reply.mapFiles = br.lines()
-                    .map(l -> "Maps" + "/" + l)
-                    .map(r -> loader.getResource(r)).filter(Objects::nonNull).map(file -> {
+                    .map(l -> "/Maps" + "/" + l)
+                    .map(r -> getClass().getResource(r)).filter(Objects::nonNull).map(file -> {
                         int slashIndex = file.getPath().lastIndexOf('/');
                         int dotIndex = file.getPath().lastIndexOf('.', slashIndex);
                         if (dotIndex == -1) {

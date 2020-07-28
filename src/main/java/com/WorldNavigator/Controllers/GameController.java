@@ -12,6 +12,9 @@ import com.WorldNavigator.Requests.LoginRequest;
 import com.WorldNavigator.Services.GameService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +22,8 @@ import org.springframework.web.bind.annotation.*;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -83,25 +88,16 @@ public class GameController {
     public ResponseEntity<MapFilesReply> getMapFiles(@RequestBody String jsonRequest) throws IOException {
         LoginRequest request = JSONDecode.decodeJsonString(jsonRequest,LoginRequest.class);
         //check if user logged in
-        MapFilesReply reply = new MapFilesReply();
-        try (
-                final InputStream is = getClass().getResource("/Maps").openStream();
-                final InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
-                final BufferedReader br = new BufferedReader(isr)) {
-                    reply.mapFiles = br.lines()
-                    .map(l -> "/Maps/" + l)
-                   /* .map(r -> getClass().getResource(r)).filter(Objects::nonNull)*/.map(file -> {
-                        int slashIndex = file.lastIndexOf('/');
-                        int dotIndex = file.lastIndexOf('.', slashIndex);
-                        if (dotIndex == -1) {
-                            return file.substring(slashIndex + 1);
-                        } else {
-                            return file.substring(slashIndex + 1, dotIndex);
-                        }
-                    })
-                    .collect(Collectors.toList());
-            return new ResponseEntity(reply, HttpStatus.OK);
+        ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        Resource[] resources = resolver.getResources("classpath*:test/*.json");
+        List<String> fileNames = new ArrayList<>();
+        for(Resource r: resources) {
+            fileNames.add(r.getFilename());
         }
+
+        MapFilesReply reply = new MapFilesReply();
+        reply.mapFiles=fileNames;
+        return new ResponseEntity(reply, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/api/game/quit", method = RequestMethod.POST)

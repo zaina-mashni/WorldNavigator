@@ -10,8 +10,8 @@ import com.WorldNavigator.Factories.RoomFactory;
 import com.WorldNavigator.Features.*;
 import com.WorldNavigator.Services.GameService;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -34,12 +34,10 @@ public class MapFileDecode {
         gameControl = new GameControl(worldName,admin);
     }
 
-    public MapFileDecode setMapFile(String mapFile) throws FileNotFoundException {
-        File file =
-                new File(
-                        Objects.requireNonNull(getClass().getClassLoader().getResource("Maps/"+mapFile))
-                                .getFile());
-        scanner = new Scanner(file);
+    public MapFileDecode setMapFile(String mapFile) {
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        InputStream is = loader.getResourceAsStream("Maps/"+mapFile);
+        scanner = new Scanner(is);
         return this;
     }
 

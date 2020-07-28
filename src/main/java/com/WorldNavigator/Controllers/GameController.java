@@ -16,10 +16,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -81,11 +82,20 @@ public class GameController {
 
     @RequestMapping(value = "/api/game/map", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<MapFilesReply> getMapFiles(@RequestBody String jsonRequest) throws JsonProcessingException {
+    public ResponseEntity<MapFilesReply> getMapFiles(@RequestBody String jsonRequest) throws IOException {
         LoginRequest request = JSONDecode.decodeJsonString(jsonRequest,LoginRequest.class);
         //check if logged in
         MapFilesReply reply = new MapFilesReply();
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        try (
+                final InputStream is = loader.getResourceAsStream("Maps");
+                final InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
+                final BufferedReader br = new BufferedReader(isr)) {
+            reply.mapFiles = br.lines()
+                    .map(l -> "Maps" + "/" + l)
+                    .map(r -> loader.getResource(r)).map(f -> f.toString())
+                    .collect(Collectors.toList());
+        }
         URL url = loader.getResource("Maps");
         String path = url.getPath();
         reply.mapFiles= Arrays.stream(Objects.requireNonNull(new File(path).listFiles())).map(File::getName).collect(Collectors.toList());

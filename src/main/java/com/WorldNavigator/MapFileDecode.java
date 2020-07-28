@@ -41,20 +41,19 @@ public class MapFileDecode {
 
     public MapFileDecode setMapFile(String mapFileName) throws IOException {
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        Resource[] resources = resolver.getResources("classpath*:Maps/*");
-        for (Resource r : resources) {
-            if (r.getFilename().equals(mapFileName)) {
-                InputStream inputStream = r.getInputStream();
-                File mapFile = File.createTempFile(r.getFilename(), ".txt");
-                try {
-                    FileUtils.copyInputStreamToFile(inputStream, mapFile);
-                    scanner=new Scanner(mapFile);
-                } finally {
-                    IOUtils.closeQuietly(inputStream);
-                }
-            }
+        Resource[] resources = resolver.getResources("classpath*:Maps/" + mapFileName);
+        if (resources.length != 1) {
+            throw new IllegalArgumentException("map file not in maps directory.");
         }
-        throw new IllegalArgumentException("map file not in maps directory.");
+        InputStream inputStream = resources[0].getInputStream();
+        File mapFile = File.createTempFile(resources[0].getFilename(), ".txt");
+        try {
+            FileUtils.copyInputStreamToFile(inputStream, mapFile);
+            scanner = new Scanner(mapFile);
+        } finally {
+            IOUtils.closeQuietly(inputStream);
+        }
+        return this;
     }
 
     public GameControl startDecode() {

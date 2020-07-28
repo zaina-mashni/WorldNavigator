@@ -5,7 +5,6 @@ import com.WorldNavigator.States.PlayerStates.*;
 import javafx.util.Pair;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Stack;
 
 public class PlayerInfo {

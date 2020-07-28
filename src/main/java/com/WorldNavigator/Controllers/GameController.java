@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -85,12 +86,12 @@ public class GameController {
         MapFilesReply reply = new MapFilesReply();
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         try (
-                final InputStream is = loader.getResourceAsStream("./Maps");
+                final InputStream is = getClass().getResource("/Maps").openStream();
                 final InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
                 final BufferedReader br = new BufferedReader(isr)) {
                     reply.mapFiles = br.lines()
-                    .map(l -> "./Maps" + "/" + l)
-                    .map(loader::getResource).filter(Objects::nonNull).map(file -> {
+                    .map(l -> "Maps" + "/" + l)
+                    .map(r -> loader.getResource(r)).filter(Objects::nonNull).map(file -> {
                         int slashIndex = file.getPath().lastIndexOf('/');
                         int dotIndex = file.getPath().lastIndexOf('.', slashIndex);
                         if (dotIndex == -1) {

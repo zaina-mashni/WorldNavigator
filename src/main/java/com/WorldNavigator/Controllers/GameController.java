@@ -87,7 +87,7 @@ public class GameController {
     @ResponseBody
     public ResponseEntity<MapFilesReply> getMapFiles(@RequestBody String jsonRequest) throws IOException {
         LoginRequest request = JSONDecode.decodeJsonString(jsonRequest,LoginRequest.class);
-        //check if user logged in
+        //check if user logged in.
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         Resource[] resources = resolver.getResources("classpath*:Maps/*.json");
         List<String> fileNames = new ArrayList<>();

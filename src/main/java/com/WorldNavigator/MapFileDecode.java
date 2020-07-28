@@ -9,6 +9,8 @@ import com.WorldNavigator.Factories.ObjectFactory;
 import com.WorldNavigator.Factories.RoomFactory;
 import com.WorldNavigator.Features.*;
 import com.WorldNavigator.Services.GameService;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
@@ -39,13 +41,20 @@ public class MapFileDecode {
 
     public MapFileDecode setMapFile(String mapFileName) throws IOException {
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        Resource[] resources = resolver.getResources("classpath*:Maps/"+mapFileName);
-        if(resources.length!=1){
-            throw new IllegalArgumentException("map file not in maps directory.");
+        Resource[] resources = resolver.getResources("classpath*:Maps/*");
+        for (Resource r : resources) {
+            if (r.getFilename().equals(mapFileName)) {
+                InputStream inputStream = r.getInputStream();
+                File mapFile = File.createTempFile(r.getFilename(), ".txt");
+                try {
+                    FileUtils.copyInputStreamToFile(inputStream, mapFile);
+                    scanner=new Scanner(mapFile);
+                } finally {
+                    IOUtils.closeQuietly(inputStream);
+                }
+            }
         }
-        InputStream inputStream = resources[0].getInputStream();
-        scanner = new Scanner(inputStream);
-        return this;
+        throw new IllegalArgumentException("map file not in maps directory.");
     }
 
     public GameControl startDecode() {

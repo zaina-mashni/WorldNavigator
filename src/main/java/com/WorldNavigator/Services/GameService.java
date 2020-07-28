@@ -19,6 +19,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -45,7 +46,7 @@ public class GameService implements IObserver {
     }
 
     public String createNewGame(String adminName, String worldName, String mapFile)
-            throws FileNotFoundException {
+            throws IOException {
         if (availableGames.containsKey(worldName)) {
             return ErrorMessages.gameExists;
         }

@@ -50,7 +50,7 @@ public class GameController {
 
     @RequestMapping(value = "/api/game/create", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<DefaultReply> createGame(@RequestBody String jsonRequest) throws JsonProcessingException, FileNotFoundException {
+    public ResponseEntity<DefaultReply> createGame(@RequestBody String jsonRequest) throws IOException {
         DefaultReply reply = new DefaultReply();
         CreateRequest request = JSONDecode.decodeJsonString(jsonRequest,CreateRequest.class);
         String message = gameService.createNewGame(request.getUsername(),request.getWorldName(),request.getMapFile());

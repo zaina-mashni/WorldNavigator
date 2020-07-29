@@ -1,11 +1,7 @@
 package com.WorldNavigator.Entities;
 
-import com.WorldNavigator.Features.IObservable;
-import com.WorldNavigator.Features.IObserver;
-import com.WorldNavigator.GameControl;
+
 import com.WorldNavigator.Services.GameService;
-import com.WorldNavigator.States.RoomStates.RoomAvailabilityStates.IRoomAvailabilityState;
-import javafx.beans.Observable;
 
 import java.util.Date;
 import java.util.Timer;

@@ -3,7 +3,6 @@ package com.WorldNavigator.Services;
 import com.WorldNavigator.Commands.ICommand;
 import com.WorldNavigator.Entities.Item;
 import com.WorldNavigator.States.PlayerStates.IPlayerState;
-import javafx.util.Pair;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;

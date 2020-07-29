@@ -46,8 +46,7 @@ public class MapFileDecode {
             throw new IllegalArgumentException("map file not in maps directory.");
         }
        // InputStream inputStream = resources[0].getInputStream();
-        File mapFile = resources[0].getFile();
-        scanner = new Scanner(mapFile);
+        scanner = new Scanner(resources[0].getInputStream());
         return this;
     }
 

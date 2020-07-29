@@ -1,7 +1,7 @@
 package com.WorldNavigator.Features;
 
 import com.WorldNavigator.Entities.Item;
-import javafx.util.Pair;
+import com.WorldNavigator.Pair;
 
 import java.util.List;
 

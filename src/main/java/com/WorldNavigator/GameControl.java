@@ -7,7 +7,6 @@ import com.WorldNavigator.Features.Container;
 import com.WorldNavigator.Services.GameService;
 import com.WorldNavigator.States.ObjectStates.Opened;
 import com.WorldNavigator.States.RoomStates.RoomAvailabilityStates.Open;
-import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Collection;

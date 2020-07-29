@@ -1,8 +1,9 @@
 package com.WorldNavigator.Entities;
 
 import com.WorldNavigator.Features.Container;
+import com.WorldNavigator.Pair;
 import com.WorldNavigator.States.PlayerStates.*;
-import javafx.util.Pair;
+
 
 import java.util.List;
 import java.util.Stack;

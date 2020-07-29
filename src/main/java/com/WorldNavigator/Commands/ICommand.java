@@ -5,8 +5,9 @@ import com.WorldNavigator.Entities.MapInfo;
 import com.WorldNavigator.Entities.Object;
 import com.WorldNavigator.Entities.PlayerInfo;
 import com.WorldNavigator.Features.Container;
+import com.WorldNavigator.Pair;
 import com.WorldNavigator.Services.CommandService;
-import javafx.util.Pair;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

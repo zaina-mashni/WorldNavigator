@@ -1,10 +1,10 @@
 package com.WorldNavigator.Features;
 
 import com.WorldNavigator.Entities.Item;
+import com.WorldNavigator.Pair;
 
 import java.util.ArrayList;
 
-import javafx.util.Pair;
 
 import java.util.HashMap;
 import java.util.List;

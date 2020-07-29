@@ -6,8 +6,8 @@ import com.WorldNavigator.Entities.Object;
 import com.WorldNavigator.Entities.PlayerInfo;
 import com.WorldNavigator.Features.Container;
 import com.WorldNavigator.Features.Trade;
+import com.WorldNavigator.Pair;
 import com.WorldNavigator.States.PlayerStates.TradeLevel;
-import javafx.util.Pair;
 
 import java.util.List;
 

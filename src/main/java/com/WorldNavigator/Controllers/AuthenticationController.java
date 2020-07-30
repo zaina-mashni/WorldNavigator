@@ -42,5 +42,15 @@ public class AuthenticationController {
         return new ResponseEntity(reply, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/api/auth/logout", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<DefaultReply> logout(@RequestBody String jsonRequest) throws JsonProcessingException {
+        DefaultReply reply = new DefaultReply();
+        LoginRequest request = JSONDecode.decodeJsonString(jsonRequest,LoginRequest.class);
+        String message = playerService.playerLogout(request.getUsername());
+        reply.setValue(message);
+        return new ResponseEntity(reply, HttpStatus.OK);
+    }
+
 
 }

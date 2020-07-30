@@ -35,6 +35,14 @@ public class PlayerService {
     return SuccessMessages.loginSuccess;
   }
 
+  public String playerLogout(String username){
+    if(!activePlayers.containsKey(username)){
+      return "player is not logged in";
+    }
+    activePlayers.remove(username);
+    return "logged out successfully";
+  }
+
   public String registerPlayer(String username, String password){
     PlayerModel playerModel = playerRepository.findByUsernameIgnoreCase(username).orElse(null);
     if(playerModel != null){

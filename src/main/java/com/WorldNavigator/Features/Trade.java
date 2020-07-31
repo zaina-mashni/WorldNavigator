@@ -17,7 +17,7 @@ public class Trade implements IFeature {
         if(!inventory.containsItem(itemName)){
             throw new IllegalArgumentException("item to buy is not in the sellers inventory.");
         }
-        int itemAmountAfterTransaction=inventory.getAmount(itemName)-1;
+        int itemAmountAfterTransaction=inventory.getItemAmount(itemName)-1;
         if(itemAmountAfterTransaction<0){
             throw new IllegalArgumentException("can not buy an item that has amount of less than 1.");
         }
@@ -28,7 +28,7 @@ public class Trade implements IFeature {
 
     public void sell(Item item){
         if(inventory.containsItem(item.getName())){
-            inventory.replaceItem(item.getName(),inventory.getAmount(item.getName())+1);
+            inventory.replaceItem(item.getName(),inventory.getItemAmount(item.getName())+1);
         }
         else {
             inventory.addItem(item,1);

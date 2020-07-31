@@ -1,19 +1,23 @@
 package com.WorldNavigator.States.PlayerStates;
 
 import com.WorldNavigator.Commands.*;
+import com.WorldNavigator.Features.IFightMode;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FightLevel implements IPlayerState {
 
+    IFightMode fightMode;
+
+    public FightLevel(IFightMode fightMode){
+        this.fightMode = fightMode;
+    }
+
     @Override
     public List<ICommand> getAvailableCommands() {
-        List<ICommand> availableCommands=new ArrayList<>();
-        availableCommands.add(new Rock());
-        availableCommands.add(new Paper());
-        availableCommands.add(new Scissors());
-        return availableCommands;
+        return fightMode.getAvailableCommands();
     }
 
     @Override

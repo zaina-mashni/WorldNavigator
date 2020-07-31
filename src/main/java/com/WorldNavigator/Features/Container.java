@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class Container implements IFeature {
     private Map<String, Pair<Item, Integer>> items;
@@ -32,7 +31,7 @@ public class Container implements IFeature {
         return tmpItems;
     }
 
-    public int getAmount(String itemName) {
+    public int getItemAmount(String itemName) {
         checkItemName(itemName);
         if(!items.containsKey(itemName))
             return 0;
@@ -54,36 +53,15 @@ public class Container implements IFeature {
         checkItemName(itemName);
         checkItemAvailability(itemName);
         items.replace(itemName, new Pair<>(getItem(itemName), amount));
-        if (getAmount(itemName) < 0) {
+        if (getItemAmount(itemName) < 0) {
             throw new IllegalArgumentException("item amount should not be negative.");
-        } else if (getAmount(itemName) == 0 && !itemName.equals("gold")) {
+        } else if (getItemAmount(itemName) == 0 && !itemName.equals("gold")) {
             items.remove(itemName);
         }
     }
 
     public void removeAll() {
         items.clear();
-    }
-
-    public int getItemCost(String itemName) {
-        checkItemName(itemName);
-        checkItemAvailability(itemName);
-        if (itemName.equals("gold")) {
-            throw new IllegalArgumentException("You cant getItemCost for gold in Container.getItemCost.");
-        }
-        return getItem(itemName).getCost();
-    }
-
-    public String getItemName(int index) {
-        if (index < 0 || index >= items.size()) {
-            throw new IndexOutOfBoundsException();
-        }
-        return getItems().get(index).getKey().getName();
-    }
-
-
-    public int getSize() {
-        return items.size();
     }
 
     public void addItems(List<Pair<Item, Integer>> items) {
@@ -107,7 +85,7 @@ public class Container implements IFeature {
             }
         }
         if (!items.containsKey(item.getName())) items.put(item.getName(), new Pair<>(item, amount));
-        else items.replace(item.getName(), new Pair<>(item, getAmount(item.getName()) + amount));
+        else items.replace(item.getName(), new Pair<>(item, getItemAmount(item.getName()) + amount));
     }
 
     public String getFeatureName() {

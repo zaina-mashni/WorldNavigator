@@ -9,7 +9,7 @@ import com.WorldNavigator.GameControl;
 import com.WorldNavigator.MapFileDecode;
 import com.WorldNavigator.Messages.ErrorMessages;
 import com.WorldNavigator.Messages.SuccessMessages;
-import com.WorldNavigator.RPSFight;
+import com.WorldNavigator.RockPaperScissorFight;
 import com.WorldNavigator.Reply.GameReply;
 import com.WorldNavigator.States.PlayerStates.FightLevel;
 import com.WorldNavigator.States.RoomStates.RoomAvailabilityStates.IRoomAvailabilityState;
@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -30,7 +29,7 @@ public class GameService implements IObserver {
 
     CommandService commandService;
     PlayerService playerService;
-    RPSFight rpsFight;
+    RockPaperScissorFight rockPaperScissorFight;
     private Map<String, GameControl> availableGames;
 
     @Autowired
@@ -42,7 +41,7 @@ public class GameService implements IObserver {
         this.commandService = commandService;
         this.webSocket = webSocket;
         availableGames =Collections.synchronizedMap( new HashMap<>());
-        rpsFight=new RPSFight();
+        rockPaperScissorFight =new RockPaperScissorFight();
     }
 
     public String createNewGame(String adminName, String worldName, String mapFile)
@@ -175,7 +174,7 @@ public class GameService implements IObserver {
             PlayerInfo winner=playerService.getRichestPlayer(playerService.getPlayersInSameRoomAsPlayer(player));
             if(winner==null){
                 playerService.getPlayersInSameRoomAsPlayer(player).forEach( playerInfo -> {
-                playerInfo.pushState(new FightLevel());
+                playerInfo.pushState(new FightLevel(new RockPaperScissorFight()));
                 webSocket.convertAndSend("/socket/start/" + playerInfo.getUsername(), startFightForPlayer(playerInfo));
             });
             } else{
@@ -209,13 +208,13 @@ public class GameService implements IObserver {
         GameReply reply=setUpGameReply(player);
         List<String> splitCommand = commandService.splitCommand(input);
         ICommand command=commandService.getCommand(playerService.getPlayer(playerUsername).getCurrentState(),splitCommand.get(0));
-        rpsFight.setPlayerChoice(playerUsername,command);
-        if(rpsFight.isReady()){
+        rockPaperScissorFight.setPlayerChoice(playerUsername,command);
+        if(rockPaperScissorFight.isReady()){
             PlayerInfo oppositePlayer=playerService.getOppositePlayerInRoom(playerService.getPlayer(playerUsername));
-            splitCommand = Collections.singletonList(rpsFight.getPlayerChoice(oppositePlayer.getUsername()).getName());
+            splitCommand = Collections.singletonList(rockPaperScissorFight.getPlayerChoice(oppositePlayer.getUsername()).getName());
             String result=command.execute(playerService.getPlayer(playerUsername),availableGames.get(playerService.getPlayer(playerUsername).getWorldName()).getMap(),splitCommand);
             splitCommand = Collections.singletonList(command.getName());
-            String oppositeResult = rpsFight.getPlayerChoice(oppositePlayer.getUsername()).execute(oppositePlayer,availableGames.get(oppositePlayer.getWorldName()).getMap(),splitCommand);
+            String oppositeResult = rockPaperScissorFight.getPlayerChoice(oppositePlayer.getUsername()).execute(oppositePlayer,availableGames.get(oppositePlayer.getWorldName()).getMap(),splitCommand);
             boolean isTie = true;
             boolean isWinning = false;
             if(result.matches(".*lost.*")){
@@ -250,7 +249,7 @@ public class GameService implements IObserver {
             if(!isTie && !isWinning){
                 reply.setPlaying(false);
             }
-            rpsFight.clearPlayerChoice();
+            rockPaperScissorFight.clearPlayerChoice();
             return reply;
         }
         reply.setMessage("Waiting for the other player to choose...");

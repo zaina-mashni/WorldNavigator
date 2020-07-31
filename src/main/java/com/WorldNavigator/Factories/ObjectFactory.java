@@ -20,7 +20,7 @@ public class ObjectFactory {
             case "closed":
                 return new Object(objectName,new ObjectBehaviour(new Closed()));
             default:
-                throw new IllegalArgumentException("state is not found in ItemFactory.buildItem");
+                throw new IllegalArgumentException("state is not found in ObjectFactory.buildObject");
         }
     }
 }

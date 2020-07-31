@@ -68,11 +68,11 @@ public class PlayerInfo {
   }
 
   public int getGoldAmount() {
-    return inventory.getAmount("gold");
+    return inventory.getItemAmount("gold");
   }
 
   public void updateGoldAmount(int amount) {
-    int amountAfterTransaction = inventory.getAmount("gold") + amount;
+    int amountAfterTransaction = inventory.getItemAmount("gold") + amount;
     if (amountAfterTransaction < 0) {
       throw new IllegalArgumentException("player's gold amount can not be less than zero");
     }

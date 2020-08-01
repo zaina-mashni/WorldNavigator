@@ -6,6 +6,7 @@ import com.WorldNavigator.Entities.Object;
 import com.WorldNavigator.Entities.PlayerInfo;
 import com.WorldNavigator.Features.Container;
 import com.WorldNavigator.Features.Trade;
+import com.WorldNavigator.Messages.ErrorMessages;
 import com.WorldNavigator.Pair;
 import com.WorldNavigator.States.PlayerStates.TradeLevel;
 
@@ -20,7 +21,7 @@ public class Sell implements ICommand {
   @Override
   public String execute(PlayerInfo player, MapInfo map, List<String> splitCommand) {
     if (!checkNumberOfInput(splitCommand, 2)) {
-      return INVALID;
+      return ErrorMessages.invalidInput;
     }
     if (!player.getCurrentState().getName().equals("tradeLevel")) {
       throw new IllegalArgumentException("Reached sell command while not facing seller");

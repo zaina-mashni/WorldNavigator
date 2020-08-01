@@ -14,20 +14,18 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class MapFileDecode {
-    ItemFactory itemFactory;
-    RoomFactory roomFactory;
-    ObjectFactory objectFactory;
-    GameControl gameControl;
-    GameService gameService;
-    Scanner scanner;
-    List<Room> rooms;
+    private ItemFactory itemFactory;
+    private RoomFactory roomFactory;
+    private ObjectFactory objectFactory;
+    private GameControl gameControl;
+    private GameService gameService;
+    private Scanner scanner;
+    private List<Room> rooms;
 
     public MapFileDecode(String worldName, PlayerInfo admin, GameService gameService) {
         this.itemFactory = new ItemFactory();
@@ -43,7 +41,6 @@ public class MapFileDecode {
         if (resources.length != 1) {
             throw new IllegalArgumentException("map file not in maps directory.");
         }
-       // InputStream inputStream = resources[0].getInputStream();
         System.out.println("Reading file from resources");
         scanner = new Scanner(resources[0].getInputStream());
         System.out.println("Finished reading");

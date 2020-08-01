@@ -78,16 +78,6 @@ public class PlayerService {
     }).collect(Collectors.toList());
     }
 
-    public void distributeGold(PlayerInfo loser) {
-    int gold=loser.getGoldAmount()/(getPlayersInWorld(loser.getWorldName()).size()-1);
-    loser.getInventory().replaceItem("gold",0);
-    getPlayersInWorld(loser.getWorldName()).forEach(player -> {
-      if(!player.getUsername().equals(loser.getUsername())){
-        player.updateGoldAmount(gold);
-      }
-    });
-    }
-
   public PlayerInfo getRichestPlayer(List<PlayerInfo> players){
     int mxWorth=0;
     List<PlayerInfo> playersWithMaxWorth=new ArrayList<>();
@@ -113,6 +103,16 @@ public class PlayerService {
   public List<PlayerInfo> getPlayersInSameRoomAsPlayer(PlayerInfo player){
     return getPlayersInWorld(player.getWorldName()).stream().filter(playerInfo ->
             playerInfo.getCurrentRoom().getRoomIndex()==player.getCurrentRoom().getRoomIndex()).collect(Collectors.toList());
+  }
+
+  public void distributeGold(PlayerInfo loser) {
+    int gold=loser.getGoldAmount()/(getPlayersInWorld(loser.getWorldName()).size()-1);
+    loser.getInventory().replaceItem("gold",0);
+    getPlayersInWorld(loser.getWorldName()).forEach(player -> {
+      if(!player.getUsername().equals(loser.getUsername())){
+        player.updateGoldAmount(gold);
+      }
+    });
   }
 
   public void distributeWealth(PlayerInfo winner, PlayerInfo loser) {

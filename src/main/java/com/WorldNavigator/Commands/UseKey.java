@@ -3,6 +3,7 @@ package com.WorldNavigator.Commands;
 import com.WorldNavigator.Entities.MapInfo;
 import com.WorldNavigator.Entities.Object;
 import com.WorldNavigator.Entities.PlayerInfo;
+import com.WorldNavigator.Messages.ErrorMessages;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class UseKey implements ICommand {
     @Override
     public String execute(PlayerInfo player, MapInfo map, List<String> splitCommand) {
         if(!checkNumberOfInput(splitCommand,2)){
-            return INVALID;
+            return ErrorMessages.invalidInput;
         }
         Object object=getObject(player,splitCommand.get(1),player.getFacingDirection());
         if(object==null){

@@ -4,6 +4,7 @@ import com.WorldNavigator.Entities.MapInfo;
 import com.WorldNavigator.Entities.Object;
 import com.WorldNavigator.Entities.PlayerInfo;
 import com.WorldNavigator.Features.Trade;
+import com.WorldNavigator.Messages.ErrorMessages;
 import com.WorldNavigator.States.PlayerStates.TradeLevel;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class ListSellerItems implements ICommand {
     @Override
     public String execute(PlayerInfo player, MapInfo map, List<String> splitCommand) {
         if (!checkNumberOfInput(splitCommand,1)) {
-            return INVALID;
+            return ErrorMessages.invalidInput;
         }
         if (!player.getCurrentState().getName().equals("tradeLevel")) {
             throw new IllegalArgumentException("Reached listSellerItems command while not facing seller");

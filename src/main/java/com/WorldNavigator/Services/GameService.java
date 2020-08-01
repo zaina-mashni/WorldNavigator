@@ -128,7 +128,9 @@ public class GameService implements IObserver {
     }
 
     public void startGame(String username, String worldName) {
-        //check if admin
+        if(!availableGames.get(worldName).getAdmin().getUsername().equals(username)){
+            throw new IllegalArgumentException("No player other than the admin should be allowed to start the game.");
+        }
         GameControl game = availableGames.get(worldName);
         playerService
                 .getPlayersInWorld(worldName)

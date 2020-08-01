@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 public interface ICommand {
-  String INVALID = "Invalid input!";
 
   default boolean checkNumberOfInput(List<String> splitInput, int noOfRequiredInput) {
     return (splitInput.size() == noOfRequiredInput);

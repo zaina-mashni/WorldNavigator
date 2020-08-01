@@ -8,6 +8,7 @@ public class ErrorMessages {
     public static String gameExists="Create failed: World name already exists";
     public static String userNotActive="Player not currently logged in";
     public static String gameFull="Game is full";
+    public static String invalidInput = "Invalid input!";
 
 
 }

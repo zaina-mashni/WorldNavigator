@@ -5,6 +5,7 @@ import com.WorldNavigator.Entities.Object;
 import com.WorldNavigator.Entities.PlayerInfo;
 import com.WorldNavigator.Entities.Room;
 import com.WorldNavigator.Features.Passage;
+import com.WorldNavigator.Messages.ErrorMessages;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class Forward implements ICommand {
   @Override
   public String execute(PlayerInfo player, MapInfo map, List<String> splitCommand) {
     if(!checkNumberOfInput(splitCommand,1)){
-      return INVALID;
+      return ErrorMessages.invalidInput;
     }
     Object passageObject = getObjectWithFeature(player,"passage",player.getFacingDirection());
     if (passageObject == null) {

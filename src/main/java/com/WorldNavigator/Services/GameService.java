@@ -85,7 +85,7 @@ public class GameService implements IObserver {
 
     public GameReply setUpGameForQuitPlayer(PlayerInfo player){
         GameReply gameReply=new GameReply();
-        gameReply.setAvailableCommands(commandService.convertToString(new ArrayList<ICommand>()));
+        gameReply.setAvailableCommands(commandService.convertToString(new ArrayList<>()));
         gameReply.setTimeLeftInMinutes(0);
         gameReply.setFacingDirection(Direction.values()[player.getFacingDirection()].name());
         gameReply.setInventory(player.getInventory().toString());
@@ -110,7 +110,7 @@ public class GameService implements IObserver {
         String message= command.execute(player, map, splitCommand);
         if(player.getCurrentRoom().getStatusState().getName().equals("exit")){
             GameReply reply = setUpGameForQuitPlayer(player);
-            reply.setMessage("You found your way out of the map!");
+            reply.setMessage(message);
             Thread thread = new Thread(() -> {
                 try {
                     Thread.sleep(1000);

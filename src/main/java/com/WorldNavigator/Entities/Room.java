@@ -30,14 +30,6 @@ public class Room implements IObservable {
         this.roomIdx=roomIndex;
     }
 
-    public void setWall(Wall wall, int wallIndex) {
-        Objects.requireNonNull(wall, "Wall can not be null when you set room walls in Room.setWall.");
-        checkWallIndex(wallIndex);
-        if (wallIndex >= 0 && wallIndex <= 3) {
-            walls.set(wallIndex, wall);
-        }
-    }
-
     public void setStatusState(IRoomStatusState statusState) {
         this.statusState = statusState;
     }

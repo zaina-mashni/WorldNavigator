@@ -6,37 +6,34 @@ import com.WorldNavigator.Entities.Object;
 import com.WorldNavigator.Entities.PlayerInfo;
 import com.WorldNavigator.Features.Container;
 import com.WorldNavigator.Pair;
-import com.WorldNavigator.Services.CommandService;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public interface ICommand {
 
+  String getName();
+
+  String execute(PlayerInfo player, MapInfo map, List<String> splitCommand);
+
   default boolean checkNumberOfInput(List<String> splitInput, int noOfRequiredInput) {
     return (splitInput.size() == noOfRequiredInput);
   }
 
-  default boolean checkIfObjectOnWall(PlayerInfo player, String objectName, int wallIdx) {
-    return player.getCurrentRoom().getWall(wallIdx).containsObject(objectName);
-  }
-
   default Object getObject(PlayerInfo player, String input, int wallIdx) {
     if (isNumberInput(input)) {
-      int objectIdx = Integer.parseInt(input) -1;
+      int objectIdx = Integer.parseInt(input) - 1;
       List<Object> objects = player.getCurrentRoom().getWall(wallIdx).getObjects();
       if (objectIdx < 0 || objectIdx >= objects.size()) {
         return null;
       }
       return objects.get(objectIdx);
     }
-    return getObjectWithName(player,input,wallIdx);
+    return getObjectWithName(player, input, wallIdx);
   }
 
   default Pair<Item, Integer> getItem(Container container, String input) {
     if (isNumberInput(input)) {
-      int itemIdx = Integer.parseInt(input)-1;
+      int itemIdx = Integer.parseInt(input) - 1;
       List<Pair<Item, Integer>> items = container.getItems();
       if (itemIdx < 0 || itemIdx >= items.size()) {
         return null;
@@ -75,10 +72,4 @@ public interface ICommand {
       return false;
     }
   }
-
-  String getName();
-
-  String execute(PlayerInfo player, MapInfo map, List<String> splitCommand);
-
-
 }

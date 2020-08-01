@@ -58,15 +58,6 @@ public class PlayerInfo {
     return username;
   }
 
-  public boolean isJoinedWorld() {
-    return joinedWorld;
-  }
-
-  public void quitWorld() {
-    this.worldName="";
-    this.joinedWorld = false;
-  }
-
   public int getGoldAmount() {
     return inventory.getItemAmount("gold");
   }

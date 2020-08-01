@@ -2,24 +2,19 @@ package com.WorldNavigator;
 
 public class Pair<K, V> {
 
-    private final K element0;
-    private final V element1;
+  private final K firstElement;
+  private final V secondElement;
 
-    public static <K, V> Pair<K, V> createPair(K element0, V element1) {
-        return new Pair<K, V>(element0, element1);
-    }
+  public Pair(K firstElement, V secondElement) {
+    this.firstElement = firstElement;
+    this.secondElement = secondElement;
+  }
 
-    public Pair(K element0, V element1) {
-        this.element0 = element0;
-        this.element1 = element1;
-    }
+  public K getKey() {
+    return firstElement;
+  }
 
-    public K getKey() {
-        return element0;
-    }
-
-    public V getValue() {
-        return element1;
-    }
-
+  public V getValue() {
+    return secondElement;
+  }
 }

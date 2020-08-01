@@ -18,19 +18,19 @@ public class RockPaperScissorFight implements IFightMode {
     Map<String, ICommand> playersChoice;
     boolean ready;
 
+    public RockPaperScissorFight(){
+        playersChoice = new HashMap<>();
+        clearPlayerChoice();
+        ready=false;
+    }
 
+    @Override
     public List<ICommand> getAvailableCommands(){
         List<ICommand> availableCommands=new ArrayList<>();
         availableCommands.add(new Rock());
         availableCommands.add(new Paper());
         availableCommands.add(new Scissors());
         return availableCommands;
-    }
-
-    public RockPaperScissorFight(){
-        playersChoice = new HashMap<>();
-        clearPlayerChoice();
-        ready=false;
     }
 
     @Override

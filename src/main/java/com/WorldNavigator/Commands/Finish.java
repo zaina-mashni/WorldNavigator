@@ -18,7 +18,7 @@ public class Finish implements ICommand {
         if(!checkNumberOfInput(splitCommand,1)){
             return ErrorMessages.invalidInput;
         }
-        if(player.getCurrentState().getName()=="roomLevel"){
+        if(player.getCurrentState().getName().equals("roomLevel")){
             throw new IllegalStateException("player should not be able to execute finish command in roomLevel.");
         }
         player.popState();

@@ -1,0 +1,91 @@
+60
+5 0 1 2 3 4
+1 gold static 1 20
+55
+lit lit lit lit lit dark dark lit dark dark dark dark dark dark noSwitch lit noSwitch lit lit noSwitch noSwitch noSwitch noSwitch noSwitch noSwitch lit dark noSwitch dark lit lit lit lit lit lit dark noSwitch dark noSwitch dark dark dark lit dark dark noSwitch noSwitch noSwitch noSwitch noSwitch exit exit exit exit exit
+85
+door 0 2 opened 1 passage 5 0
+door 1 2 opened 1 passage 6 0
+door 2 2 opened 1 passage 7 0
+door 3 2 opened 1 passage 8 0
+door 4 2 opened 1 passage 9 0
+door 5 2 opened 1 passage 10 0
+door 6 2 opened 1 passage 11 0
+door 7 2 opened 1 passage 12 0
+door 8 2 opened 1 passage 13 0
+door 9 2 opened 1 passage 14 0
+door 7 1 locked 2 passage 8 3 lock greenKey static 10
+door 11 1 closed 1 passage 12 3
+door 13 1 closed 1 passage 14 3
+door 15 1 locked 2 passage 16 3 lock redKey static 10
+door 10 2 closed 1 passage 15 0
+door 12 2 closed 1 passage 17 0
+door 16 1 closed 1 passage 17 3
+door 14 2 locked 2 passage 19 0 lock yellowKey static 10
+door 22 0 closed 1 passage 17 2
+door 22 3 closed 1 passage 21 1
+door 20 1 locked 2 passage 21 3 lock pinkKey static 10
+door 24 0 closed 1 passage 19 2
+door 19 3 opened 1 passage 18 1
+door 18 3 closed 1 passage 17 1
+door 22 2 locked 2 passage 27 0 lock greenKey static 10
+door 26 0 closed 1 passage 21 2
+door 32 0 closed 1 passage 27 2
+door 23 2 closed 1 passage 28 0
+door 23 1 closed 1 passage 24 3
+door 28 1 locked 2 passage 29 3 lock purpleKey static 10
+door 30 0 opened 1 passage 25 2
+door 26 3 locked 2 passage 25 1 lock yellowKey static 10
+door 32 0 closed 1 passage 27 2
+door 29 2 closed 1 passage 34 0
+door 35 0 closed 1 passage 30 2
+door 31 3 opened 1 passage 30 1
+door 36 0 locked 2 passage 31 2 lock blueKey static 10
+door 37 0 closed 1 passage 32 2
+door 32 1 closed 1 passage 33 3
+door 33 2 opened 1 passage 38 0
+door 39 0 closed 1 passage 34 2
+door 40 0 locked 2 passage 35 2 lock redKey static 10
+door 36 3 closed 1 passage 35 1
+door 42 0 opened 1 passage 37 2
+door 37 3 closed 1 passage 36 1
+door 44 0 closed 1 passage 39 2
+door 39 3 closed 1 passage 38 1
+door 38 3 opened 1 passage 37 1
+door 46 0 closed 1 passage 41 2
+door 41 3 closed 1 passage 40 1
+door 47 0 closed 1 passage 42 2
+door 42 3 closed 1 passage 41 1
+door 48 0 closed 1 passage 43 2
+door 43 3 closed 1 passage 42 1
+door 44 3 locked 2 passage 43 1 lock pinkKey static 10
+door 46 3 closed 1 passage 45 1
+door 49 3 closed 1 passage 48 1
+door 50 0 locked 2 passage 45 2 lock goldKey static 10
+door 51 0 locked 2 passage 46 2 lock silverKey static 10
+door 52 0 locked 2 passage 47 2 lock bronzeKey static 10
+door 53 0 locked 2 passage 48 2 lock blackKey static 10
+door 54 0 locked 2 passage 49 2 lock emeraldKey static 10
+chest 1 0 closed 1 container 1 gold static 1 3
+mirror 2 1 static 1 container 1 greenKey static 10 1
+painting 4 3 static 1 container 1 flashlight switchedOff 2 1
+painting 5 3 static 1 container 1 redKey static 10 1
+mirror 7 3 static 1 container 1 gold static 1 1
+seller 9 1 static 1 trade 2 yellowKey static 10 1 greenKey static 10 1
+chest 11 2 opened 1 container 1 gold static 1 5
+seller 12 1 static 1 trade 1 flashlight switchedOff 2 1
+painting 15 3 static 1 container 1 flashlight switchedOn 2 1
+seller 16 2 static 1 trade 1 pinkKey static 10 1
+painting 23 0 static 1 container 1 flashlight switchedOn 2 1
+seller 25 3 static 1 trade 1 emeraldKey static 10 1
+painting 27 3 static 1 container 1 flashlight switchedOn 2 1
+seller 28 2 static 1 trade 1 purpleKey static 10 1
+seller 29 1 static 1 trade 1 silverKey static 10 1
+chest 32 3 closed 1 container 1 blueKey static 10 1
+chest 33 1 opened 1 container 1 gold static 1 3
+painting 35 3 static 1 container 1 flashlight switchedOff 2 1
+chest 36 2 opened 1 container 1 gold static 1 5
+seller 37 1 static 1 trade 1 goldKey static 10 1
+seller 40 3 static 1 trade 1 bronzeKey static 10 1
+chest 44 1 locked 2 lock purpleKey static 10 container 1 blackKey static 10 1
+mirror 47 1 static 1 container 1 gold static 1 4

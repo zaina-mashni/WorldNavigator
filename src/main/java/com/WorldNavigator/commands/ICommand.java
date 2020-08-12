@@ -73,9 +73,11 @@ public interface ICommand {
     }
   }
 
-  default void checkArguments(PlayerInfo player, MapInfo map, List<String> splitCommand){
-    if(player==null || map==null || splitCommand==null){
-      throw new IllegalArgumentException("Player, map and splitCommand can not be null");
+  default void checkArguments(
+      PlayerInfo player, MapInfo map, List<String> splitCommand, String className) {
+    if (player == null || map == null || splitCommand == null) {
+      throw new IllegalArgumentException(
+          "Player, map and splitCommand can not be null in class " + className);
     }
   }
 }

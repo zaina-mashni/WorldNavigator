@@ -8,7 +8,9 @@ import java.util.List;
 
 public class TradeLevel implements IPlayerState {
     Object object;
+
     public TradeLevel(Object tradeObject) {
+        checkIfNull("TradeObject",tradeObject,"TradeLevel");
         this.object=tradeObject;
     }
 
@@ -30,4 +32,10 @@ public class TradeLevel implements IPlayerState {
     public String getName() {
         return "tradeLevel";
     }
+
+    @Override
+    public String getDisplayName() {
+        return "seller";
+    }
+
 }

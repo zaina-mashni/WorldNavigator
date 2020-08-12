@@ -11,4 +11,5 @@ public class ErrorMessages {
     public static String invalidInput = "Invalid input!";
     public static String gameStarted = "UnJoin failed: You can not unJoin after the game starts";
     public static String internalError = "Something went wrong. Try again later";
+    public static String userAlreadyActive = "Authentication failed: Player already active";
 }

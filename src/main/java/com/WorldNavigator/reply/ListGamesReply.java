@@ -7,6 +7,15 @@ import java.util.List;
 
 public class ListGamesReply {
     public List<GameInfoView> availableGames;
+    public String status;
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
 
     public ListGamesReply(){
         availableGames=new ArrayList<>();

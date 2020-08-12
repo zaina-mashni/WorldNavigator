@@ -5,12 +5,16 @@ import com.WorldNavigator.entities.PlayerInfo;
 public class NoSwitch implements IRoomStatusState {
     @Override
     public IRoomStatusState handleStateChangeInput(PlayerInfo player, String input) {
+        checkIfNull("Player",player,"NoSwitch");
+        checkIfNull("Input",input,"NoSwitch");
         //no current command affects this state
         return this;
     }
 
     @Override
     public String handleStateSpecificInput(PlayerInfo player, String input) {
+        checkIfNull("Player",player,"NoSwitch");
+        checkIfNull("Input",input,"NoSwitch");
         if (input.equals("look")){
             return "Room is dark! look for a light source.";
         }
@@ -24,4 +28,5 @@ public class NoSwitch implements IRoomStatusState {
     public String getName() {
         return "noSwitch";
     }
+
 }

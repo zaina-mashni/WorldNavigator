@@ -20,7 +20,7 @@ public class Buy implements ICommand {
 
   @Override
   public String execute(PlayerInfo player, MapInfo map, List<String> splitCommand) {
-    checkArguments(player,map,splitCommand);
+    checkArguments(player, map, splitCommand, "Buy");
     if (!checkNumberOfInput(splitCommand, 2)) {
       return ErrorMessages.invalidInput;
     }
@@ -40,7 +40,7 @@ public class Buy implements ICommand {
     if (player.getGoldAmount() >= item.getKey().getCost()) {
       tradeFeature.buy(item.getKey().getName());
       player.updateGoldAmount(item.getKey().getCost() * -1);
-      player.getInventory().addItem(item.getKey(),1);
+      player.getInventory().addItem(item.getKey(), 1);
       return item.getKey().getName() + " bought and acquired!";
     }
     return "Come back when you have enough gold!";

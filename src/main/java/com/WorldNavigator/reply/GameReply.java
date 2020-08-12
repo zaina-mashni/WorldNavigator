@@ -8,6 +8,15 @@ public class GameReply {
     public String availableCommands;
     public boolean isFighting;
     public boolean isPlaying;
+    public String status;
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
 
     public void setMessage(String message) {
         this.message = message;

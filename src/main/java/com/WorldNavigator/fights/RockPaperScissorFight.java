@@ -24,7 +24,7 @@ public class RockPaperScissorFight implements IFightMode {
 
   @Override
   public String getResultOfFightForPlayer(PlayerInfo player) {
-    checkIfNull("Player", player);
+    checkIfNull("Player", player,"RockPaperScissorFight");
     if (firstPlayerChoice == null || secondPlayerChoice == null) {
       throw new IllegalStateException(
           "PlayerChoice must be set before getting it in class RockPaperScissorFight");
@@ -98,9 +98,9 @@ public class RockPaperScissorFight implements IFightMode {
 
   @Override
   public void setPlayerChoice(PlayerInfo player, ICommand choice, GameControl gameControl) {
-    checkIfNull("Player", player);
-    checkIfNull("Choice", choice);
-    checkIfNull("GameControl", gameControl);
+    checkIfNull("Player", player,"RockPaperScissorFight");
+    checkIfNull("Choice", choice,"RockPaperScissorFight");
+    checkIfNull("GameControl", gameControl,"RockPaperScissorFight");
     if (firstPlayerChoice == null) {
       firstPlayerChoice = new Pair<>(player, choice);
       this.gameControl = gameControl;
@@ -124,9 +124,4 @@ public class RockPaperScissorFight implements IFightMode {
     return ready;
   }
 
-  private void checkIfNull(String key, java.lang.Object value) {
-    if (value == null) {
-      throw new IllegalArgumentException(key + " can not be null in class RockPaperScissorFight");
-    }
-  }
 }

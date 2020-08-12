@@ -23,4 +23,10 @@ public class RoomLevel implements IPlayerState {
         return "roomLevel";
     }
 
+    @Override
+    public String getDisplayName() {
+        return "room";
+    }
+
+
 }

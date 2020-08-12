@@ -12,6 +12,7 @@ public class ObjectLevel implements IPlayerState {
     private Object object;
 
     public ObjectLevel(Object object){
+        checkIfNull("Object",object,"ObjectLevel");
         this.object=object;
     }
 
@@ -31,4 +32,10 @@ public class ObjectLevel implements IPlayerState {
     public String getName() {
         return "objectLevel";
     }
+
+    @Override
+    public String getDisplayName() {
+        return "object";
+    }
+
 }

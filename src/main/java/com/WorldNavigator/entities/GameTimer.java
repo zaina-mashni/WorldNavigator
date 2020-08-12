@@ -29,13 +29,13 @@ public class GameTimer {
         public void run() {
           System.out.println("Game Over! You ran out of time.");
           System.out.println("Better Luck Next Time");
-          gameService.endGame(worldName, "Game Over! You ran out of time.");
+          gameService.endGame(worldName, "Game Over! You ran out of time.","OK");
         }
       };
 
   public void schedule(long finishTimeInSeconds) {
     System.out.println("in schedule");
-    if (finishTime <= 0) {
+    if (finishTimeInSeconds <= 0) {
       throw new IllegalArgumentException(
           "finish time can not be less than or equal to zero in GameTimer.schedule.");
     }

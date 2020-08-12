@@ -7,4 +7,5 @@ public class SuccessMessages {
     public static String createSuccess="World created successfully";
     public static String unJoinSuccess="World unJoined successfully";
     public static String startSuccess="World started successfully";
+    public static String loginOutSuccess="Logout successful";
 }

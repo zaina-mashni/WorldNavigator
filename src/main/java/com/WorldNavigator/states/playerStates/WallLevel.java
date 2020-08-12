@@ -22,4 +22,9 @@ public class WallLevel implements IPlayerState {
     public String getName() {
         return "wallLevel";
     }
+
+    @Override
+    public String getDisplayName() {
+        return "wall";
+    }
 }

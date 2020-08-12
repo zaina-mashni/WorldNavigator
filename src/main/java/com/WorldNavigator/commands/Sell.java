@@ -20,7 +20,7 @@ public class Sell implements ICommand {
 
   @Override
   public String execute(PlayerInfo player, MapInfo map, List<String> splitCommand) {
-    checkArguments(player,map,splitCommand);
+    checkArguments(player, map, splitCommand, "Sell");
     if (!checkNumberOfInput(splitCommand, 2)) {
       return ErrorMessages.invalidInput;
     }
@@ -39,7 +39,11 @@ public class Sell implements ICommand {
     }
     tradeFeature.sell(item.getKey());
     player.updateGoldAmount(item.getKey().getCost());
-    player.getInventory().replaceItem(item.getKey().getName(),player.getInventory().getItemAmount(item.getKey().getName())-1);
+    player
+        .getInventory()
+        .replaceItem(
+            item.getKey().getName(),
+            player.getInventory().getItemAmount(item.getKey().getName()) - 1);
     return item.getKey().getName() + " sold!";
   }
 }

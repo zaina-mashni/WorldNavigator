@@ -26,18 +26,18 @@ public class Container implements IFeature {
   }
 
   public int getItemAmount(String itemName) {
-    checkIfNull("ItemName", itemName);
+    checkIfNull("ItemName", itemName, "Container");
     if (!items.containsKey(itemName)) return 0;
     return items.get(itemName).getValue();
   }
 
   public boolean containsItem(String itemName) {
-    checkIfNull("ItemName", itemName);
+    checkIfNull("ItemName", itemName, "Container");
     return items.containsKey(itemName);
   }
 
   public Item getItem(String itemName) {
-    checkIfNull("ItemName", itemName);
+    checkIfNull("ItemName", itemName, "Container");
     if (!containsItem(itemName)) {
       throw new IllegalArgumentException("You can not getItem before adding it in class Container");
     }
@@ -45,7 +45,7 @@ public class Container implements IFeature {
   }
 
   public void addOrReplaceItem(Item item, int amount) {
-    checkIfNull("Item", item);
+    checkIfNull("Item", item, "Container");
     if (containsItem(item.getName())) {
       replaceItem(item.getName(), amount);
     } else {
@@ -54,7 +54,7 @@ public class Container implements IFeature {
   }
 
   public void replaceItem(String itemName, int amount) {
-    checkIfNull("ItemName", itemName);
+    checkIfNull("ItemName", itemName, "Container");
     if (!containsItem(itemName)) {
       throw new IllegalArgumentException(
           "Can not replace an item that is not added in class Container");
@@ -75,19 +75,21 @@ public class Container implements IFeature {
   }
 
   public void addItems(List<Pair<Item, Integer>> items) {
-    checkIfNull("Items", items);
+    checkIfNull("Items", items, "Container");
     for (Pair<Item, Integer> item : items) {
       addItem(item.getKey(), item.getValue());
     }
   }
 
   public void addItem(Item item, int amount) {
-    checkIfNull("Item", item);
-    if (amount <= 0) {
+    checkIfNull("Item", item, "Container");
+    if (amount < 0) {
       throw new IllegalArgumentException(
-          "Amount can not be less than or equal to zero when adding to inventory in class Container");
+          "Amount can not be less than zero when adding to inventory in class Container");
     }
-    items.put(item.getName(), new Pair<>(item, amount));
+    if(amount>0){
+      items.put(item.getName(), new Pair<>(item, amount));
+    }
   }
 
   public String getFeatureName() {
@@ -113,11 +115,5 @@ public class Container implements IFeature {
       return "No items to show!";
     }
     return stringRepresentation.toString();
-  }
-
-  private void checkIfNull(String key, java.lang.Object value) {
-    if (value == null) {
-      throw new IllegalArgumentException(key + " can not be null in class Container");
-    }
   }
 }

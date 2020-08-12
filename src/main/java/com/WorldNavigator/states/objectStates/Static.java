@@ -7,13 +7,19 @@ import com.WorldNavigator.features.Container;
 public class Static implements  IObjectState {
     static final String NAME="static";
     @Override
-    public IObjectState handleStateChangeInput(PlayerInfo player, Object object, String command) {
+    public IObjectState handleStateChangeInput(PlayerInfo player, Object object, String input) {
+        checkIfNull("Player",player,"objectStates.Static");
+        checkIfNull("Object",object,"objectStates.Static");
+        checkIfNull("Input",input,"objectStates.Static");
         //no current commands that affect static objects
         return this;
     }
 
     @Override
     public String handleStateSpecificInput(PlayerInfo player, Object object, String input) {
+        checkIfNull("Player",player,"objectStates.Static");
+        checkIfNull("Object",object,"objectStates.Static");
+        checkIfNull("Input",input,"objectStates.Static");
         if(input.equals("check") && object.hasFeature("container")){
             return ((Container)object.getFeature("container")).toString();
         }
@@ -31,4 +37,5 @@ public class Static implements  IObjectState {
     public String getName() {
         return NAME;
     }
+
 }

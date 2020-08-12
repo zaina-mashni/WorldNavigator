@@ -136,7 +136,7 @@ public class GameControl {
                 } catch (InterruptedException e) {
                   e.printStackTrace();
                 }
-                gameService.endGame(worldName, "Game ended!");
+                gameService.endGame(worldName, "Game ended!","OK");
               });
       thread.start();
     }

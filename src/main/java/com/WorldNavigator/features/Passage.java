@@ -10,8 +10,8 @@ public class Passage implements IFeature {
   private static final String NAME = "passage";
 
   public Passage(Room firstRoom, int firstRoomWallIdx, Room secondRoom, int secondRoomWallIdx) {
-    checkIfNull("FirstRoom", firstRoom);
-    checkIfNull("SecondRoom", secondRoom);
+    checkIfNull("FirstRoom", firstRoom,"Passage");
+    checkIfNull("SecondRoom", secondRoom,"Passage");
     this.firstRoom = firstRoom;
     this.secondRoom = secondRoom;
     this.firstRoomWallIdx = firstRoomWallIdx;
@@ -19,7 +19,7 @@ public class Passage implements IFeature {
   }
 
   public Room getOppositeRoom(Room room) {
-    checkIfNull("Room", room);
+    checkIfNull("Room", room,"Passage");
     if (firstRoom == room) return secondRoom;
     return firstRoom;
   }
@@ -37,9 +37,4 @@ public class Passage implements IFeature {
     return NAME;
   }
 
-  private void checkIfNull(String key, java.lang.Object value) {
-    if (value == null) {
-      throw new IllegalArgumentException(key + " can not be null in class Passage");
-    }
-  }
 }

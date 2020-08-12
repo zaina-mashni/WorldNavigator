@@ -15,4 +15,9 @@ public interface IFightMode {
     String getResultOfFightForPlayer(PlayerInfo player);
     int getRoomId();
     String getWorldName();
+    default void checkIfNull(String key, java.lang.Object value, String className) {
+        if (value == null) {
+            throw new IllegalArgumentException(key + " can not be null in class "+className);
+        }
+    }
 }

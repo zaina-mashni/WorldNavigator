@@ -5,7 +5,9 @@ import com.WorldNavigator.entities.PlayerInfo;
 public class Open implements IRoomAvailabilityState {
     @Override
     public IRoomAvailabilityState handleStateChangeInput(PlayerInfo player, String input) {
-        if(input.equals("forward") || input.equals("backward")){
+        checkIfNull("Player",player,"Open");
+        checkIfNull("Input",input,"Open");
+        if(input.equals("forward") || input.equals("backward") || input.equals("move")){
             return new Full();
         }
         else if(input.equals("leave")){
@@ -16,7 +18,9 @@ public class Open implements IRoomAvailabilityState {
 
     @Override
     public String handleStateSpecificInput(PlayerInfo player, String input) {
-        if(input.equals("forward") || input.equals("backward")){
+        checkIfNull("Player",player,"Open");
+        checkIfNull("Input",input,"Open");
+        if(input.equals("forward") || input.equals("backward") || input.equals("move")){
             return "You entered a new room!";
         }
         return null;
@@ -26,4 +30,5 @@ public class Open implements IRoomAvailabilityState {
     public String getName() {
         return "open";
     }
+
 }

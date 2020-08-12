@@ -10,6 +10,7 @@ public class FightLevel implements IPlayerState {
     IFightMode fightMode;
 
     public FightLevel(IFightMode fightMode){
+        checkIfNull("FightMode",fightMode,"FightLevel");
         this.fightMode = fightMode;
     }
 
@@ -21,5 +22,10 @@ public class FightLevel implements IPlayerState {
     @Override
     public String getName() {
         return "fightLevel";
+    }
+
+    @Override
+    public String getDisplayName() {
+        return "opponent";
     }
 }

@@ -15,7 +15,7 @@ public class Look implements ICommand {
 
   @Override
   public String execute(PlayerInfo player, MapInfo map, List<String> splitCommand) {
-    checkArguments(player,map,splitCommand);
+    checkArguments(player, map, splitCommand, "Look");
     if (!checkNumberOfInput(splitCommand, 1)) {
       return ErrorMessages.invalidInput;
     }
@@ -29,5 +29,5 @@ public class Look implements ICommand {
       player.pushState(new WallLevel());
     }
     return player.getCurrentRoom().handleStatusStateSpecificInput(player, getName());
-}
+  }
 }

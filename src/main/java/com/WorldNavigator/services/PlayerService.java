@@ -4,6 +4,7 @@ import com.WorldNavigator.entities.PlayerInfo;
 import com.WorldNavigator.messages.ErrorMessages;
 import com.WorldNavigator.messages.SuccessMessages;
 import com.WorldNavigator.model.PlayerModel;
+import com.WorldNavigator.reply.DefaultReply;
 import com.WorldNavigator.repositories.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,8 @@ import java.util.stream.Collectors;
 
 @Component
 public class PlayerService {
+  private static final String ok = "OK";
+  private static final String error = "ERROR";
 
   private Map<String, PlayerInfo> activePlayers;
   private PlayerRepository playerRepository;
@@ -23,39 +26,61 @@ public class PlayerService {
     this.playerRepository = playerRepository;
   }
 
-  public String playerLogin(String username, String password) {
-    PlayerModel playerModel = playerRepository.findByUsernameIgnoreCase(username).orElse(null);
-    if (playerModel == null || !playerModel.getPassword().equals(password)) {
-      return ErrorMessages.wrongUserOrPass;
+  public DefaultReply playerLogin(String username, String password) {
+    try {
+      checkIfNull("Username", username);
+      checkIfNull("Password", password);
+      PlayerModel playerModel = playerRepository.findByUsernameIgnoreCase(username).orElse(null);
+      if (playerModel == null || !playerModel.getPassword().equals(password)) {
+        return setUpDefaultReply(ErrorMessages.wrongUserOrPass,error);
+      }
+      if (!activePlayers.containsKey(username)) {
+        activePlayers.put(username, new PlayerInfo(username));
+        return setUpDefaultReply(SuccessMessages.loginSuccess,ok);
+      }
+      return setUpDefaultReply(ErrorMessages.userAlreadyActive,error);
+    } catch (Exception e) {
+      return throwInternalError(e);
     }
-    if (!activePlayers.containsKey(username)) {
-      activePlayers.put(username, new PlayerInfo(username));
-      return SuccessMessages.loginSuccess;
-    }
-    return SuccessMessages.loginSuccess;
   }
 
-  public String playerLogout(String username) {
-    if (!activePlayers.containsKey(username)) {
-      return "player is not logged in";
+  public DefaultReply playerLogout(String username) {
+    try {
+      checkIfNull("Username", username);
+      if (!activePlayers.containsKey(username)) {
+        return setUpDefaultReply(ErrorMessages.userNotActive,error);
+      }
+      activePlayers.remove(username);
+      return setUpDefaultReply(SuccessMessages.loginOutSuccess,ok);
+    } catch (Exception e) {
+      return throwInternalError(e);
     }
-    activePlayers.remove(username);
-    return "logged out successfully";
   }
 
-  public String registerPlayer(String username, String password) {
-    PlayerModel playerModel = playerRepository.findByUsernameIgnoreCase(username).orElse(null);
-    if (playerModel != null) {
-      return ErrorMessages.userExists;
+  public DefaultReply registerPlayer(String username, String password) {
+    try {
+      checkIfNull("Username", username);
+      checkIfNull("Password", password);
+      PlayerModel playerModel = playerRepository.findByUsernameIgnoreCase(username).orElse(null);
+      if (playerModel != null) {
+        return setUpDefaultReply(ErrorMessages.userExists,error);
+      }
+      playerModel = new PlayerModel();
+      playerModel.setUsername(username);
+      playerModel.setPassword(password);
+      playerRepository.save(playerModel);
+      return setUpDefaultReply(SuccessMessages.registrationSuccess,ok);
+    } catch (Exception e) {
+      return throwInternalError(e);
     }
-    playerModel = new PlayerModel();
-    playerModel.setUsername(username);
-    playerModel.setPassword(password);
-    playerRepository.save(playerModel);
-    return SuccessMessages.registrationSuccess;
   }
 
   public void playerJoinGame(String username, String worldName) {
+    checkIfNull("Username", username);
+    checkIfNull("WorldName", worldName);
+    if (!activePlayers.containsKey(username)) {
+      throw new IllegalStateException("Player can not join game if they are not active");
+    }
     activePlayers.get(username).setWorld(worldName);
   }
 
@@ -63,20 +88,23 @@ public class PlayerService {
     if (activePlayers.containsKey(username)) {
       return activePlayers.get(username);
     }
-    return null;
+    throw new IllegalStateException("You have to set player before getting them.");
   }
 
   public boolean isPlayerActive(String username) {
+    checkIfNull("Username", username);
     return activePlayers.containsKey(username);
   }
 
   public List<PlayerInfo> getPlayersInWorld(String worldName) {
+    checkIfNull("WorldName", worldName);
     return activePlayers.values().stream()
         .filter(player -> player.getWorldName().equals(worldName))
         .collect(Collectors.toList());
   }
 
   public PlayerInfo getRichestPlayer(List<PlayerInfo> players) {
+    checkIfNull("Players", players);
     int mxWorth = 0;
     List<PlayerInfo> playersWithMaxWorth = new ArrayList<>();
     for (PlayerInfo player : players) {
@@ -96,6 +124,7 @@ public class PlayerService {
   }
 
   public PlayerInfo getOppositePlayerInRoom(PlayerInfo player) {
+    checkIfNull("Player", player);
     return getPlayersInSameRoomAsPlayer(player).stream()
         .filter(playerInfo -> !playerInfo.getUsername().equals(player.getUsername()))
         .findFirst()
@@ -103,39 +132,59 @@ public class PlayerService {
   }
 
   public List<PlayerInfo> getPlayersInSameRoomAsPlayer(PlayerInfo player) {
+    checkIfNull("Player", player);
     return getPlayersInWorld(player.getWorldName()).stream()
         .filter(
             playerInfo ->
-                playerInfo.getCurrentRoom().getRoomId()
-                    == player.getCurrentRoom().getRoomId())
+                playerInfo.getCurrentRoom().getRoomId() == player.getCurrentRoom().getRoomId())
         .collect(Collectors.toList());
   }
 
-  public void distributeGold(PlayerInfo loser) {
+  public void distributeGoldOfPlayer(PlayerInfo player) {
+    checkIfNull("Player", player);
     int gold = 0;
-    if(getPlayersInWorld(loser.getWorldName()).size()!=1){
-      gold = loser.getGoldAmount() / (getPlayersInWorld(loser.getWorldName()).size() - 1);
+    if (getPlayersInWorld(player.getWorldName()).size() != 1) {
+      gold = player.getGoldAmount() / (getPlayersInWorld(player.getWorldName()).size() - 1);
     }
-    loser.getInventory().replaceItem("gold", 0);
-    int finalGold = gold;
-    getPlayersInWorld(loser.getWorldName())
+    player.getInventory().replaceItem("gold", 0);
+    int goldPerPlayer = gold;
+    getPlayersInWorld(player.getWorldName())
         .forEach(
-            player -> {
-              if (!player.getUsername().equals(loser.getUsername())) {
-                player.updateGoldAmount(finalGold);
+            playerInfo -> {
+              if (!playerInfo.getUsername().equals(player.getUsername())) {
+                playerInfo.updateGoldAmount(goldPerPlayer);
               }
             });
   }
 
   public void distributeWealth(PlayerInfo winner, PlayerInfo loser) {
-    distributeGold(loser);
+    checkIfNull("Winner", winner);
+    checkIfNull("Loser", loser);
+    distributeGoldOfPlayer(loser);
     winner.getInventory().addItems(loser.getInventory().getItems());
     loser.getInventory().removeAll();
   }
 
   public void unJoinGame(String username) {
+    checkIfNull("Username", username);
     activePlayers.get(username).setWorld("");
   }
 
+  public DefaultReply setUpDefaultReply(String message, String status) {
+    DefaultReply reply = new DefaultReply();
+    reply.setValue(message);
+    reply.setStatus(status);
+    return reply;
+  }
 
+  private DefaultReply throwInternalError(Exception e) {
+    System.out.println(e.getMessage());
+    return setUpDefaultReply(ErrorMessages.internalError,error);
+  }
+
+  private void checkIfNull(String key, Object value) {
+    if (value == null) {
+      throw new IllegalArgumentException(key + " is null in class PlayerService");
+    }
+  }
 }

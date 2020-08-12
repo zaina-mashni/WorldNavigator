@@ -6,8 +6,11 @@ import com.WorldNavigator.entities.PlayerInfo;
 public class Opened implements  IObjectState {
     static final String NAME="opened";
     @Override
-    public IObjectState handleStateChangeInput(PlayerInfo player, Object object, String command) {
-        if (command.equals("close")) {
+    public IObjectState handleStateChangeInput(PlayerInfo player, Object object, String input) {
+        checkIfNull("Player",player,"Opened");
+        checkIfNull("Object",object,"Opened");
+        checkIfNull("Input",input,"Opened");
+        if (input.equals("close")) {
             return new Closed();
         }
         return this;
@@ -15,6 +18,9 @@ public class Opened implements  IObjectState {
 
     @Override
     public String handleStateSpecificInput(PlayerInfo player, Object object, String input) {
+        checkIfNull("Player",player,"Opened");
+        checkIfNull("Object",object,"Opened");
+        checkIfNull("Input",input,"Opened");
         if(input.equals("check") || input.equals("open")){
             return object.getName()+" is open!";
         }

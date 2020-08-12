@@ -5,6 +5,8 @@ import com.WorldNavigator.entities.PlayerInfo;
 public class Lit implements IRoomStatusState {
     @Override
     public IRoomStatusState handleStateChangeInput(PlayerInfo player, String input) {
+        checkIfNull("Player",player,"Lit");
+        checkIfNull("Input",input,"Lit");
         if(input.equals("useSwitch")){
             return new Dark();
         }
@@ -13,6 +15,8 @@ public class Lit implements IRoomStatusState {
 
     @Override
     public String handleStateSpecificInput(PlayerInfo player, String input) {
+        checkIfNull("Player",player,"Lit");
+        checkIfNull("Input",input,"Lit");
         if (input.equals("look")){
             return player.getCurrentRoom().getWall(player.getFacingDirection()).toString();
         }
@@ -26,4 +30,5 @@ public class Lit implements IRoomStatusState {
     public String getName() {
         return "lit";
     }
+
 }

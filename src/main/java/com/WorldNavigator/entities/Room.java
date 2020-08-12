@@ -3,6 +3,7 @@ package com.WorldNavigator.entities;
 import com.WorldNavigator.services.GameService;
 import com.WorldNavigator.states.roomStates.roomAvailabilityStates.Empty;
 import com.WorldNavigator.states.roomStates.roomAvailabilityStates.IRoomAvailabilityState;
+import com.WorldNavigator.states.roomStates.roomAvailabilityStates.Open;
 import com.WorldNavigator.states.roomStates.roomStatusStates.IRoomStatusState;
 
 import java.util.*;
@@ -87,9 +88,10 @@ public class Room {
     walls.get(wallIdx).addOrReplaceObject(object);
   }
 
-  public void returnToEmptyState() {
+  public void returnToOpenState() {
     availabilityStates.clear();
     availabilityStates.push(new Empty());
+    availabilityStates.push(new Open());
   }
 
   private void checkWallIndex(int index) {
@@ -104,4 +106,5 @@ public class Room {
       throw new IllegalArgumentException(key + " can not be null in class Room");
     }
   }
+
 }

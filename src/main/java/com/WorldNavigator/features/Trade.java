@@ -7,12 +7,12 @@ public class Trade implements IFeature {
   private Container inventory;
 
   public Trade(Container inventory) {
-    checkIfNull("Inventory", inventory);
+    checkIfNull("Inventory", inventory,"Trade");
     this.inventory = inventory;
   }
 
   public Item buy(String itemName) {
-    checkIfNull("ItemName", itemName);
+    checkIfNull("ItemName", itemName,"Trade");
     if (!inventory.containsItem(itemName)) {
       throw new IllegalArgumentException(
           "item to buy is not in the sellers inventory in class Trade.");
@@ -24,7 +24,7 @@ public class Trade implements IFeature {
   }
 
   public void sell(Item item) {
-    checkIfNull("Item", item);
+    checkIfNull("Item", item,"Trade");
     inventory.addOrReplaceItem(item, inventory.getItemAmount(item.getName()) + 1);
   }
 
@@ -37,9 +37,4 @@ public class Trade implements IFeature {
     return NAME;
   }
 
-  private void checkIfNull(String key, java.lang.Object value) {
-    if (value == null) {
-      throw new IllegalArgumentException(key + " can not be null in class Trade");
-    }
-  }
 }

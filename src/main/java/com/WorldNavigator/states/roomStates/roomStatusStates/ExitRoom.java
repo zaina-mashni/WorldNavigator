@@ -5,12 +5,16 @@ import com.WorldNavigator.entities.PlayerInfo;
 public class ExitRoom implements IRoomStatusState {
     @Override
     public IRoomStatusState handleStateChangeInput(PlayerInfo player, String input) {
+        checkIfNull("Player",player,"ExitRoom");
+        checkIfNull("Input",input,"ExitRoom");
         //no current command affects this state
         return this;
     }
 
     @Override
     public String handleStateSpecificInput(PlayerInfo player, String input) {
+        checkIfNull("Player",player,"ExitRoom");
+        checkIfNull("Input",input,"ExitRoom");
         if(input.equals("forward") || input.equals("backward")){
             return "You found your way out of the map!";
         }
@@ -21,4 +25,5 @@ public class ExitRoom implements IRoomStatusState {
     public String getName() {
         return "exit";
     }
+
 }

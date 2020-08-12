@@ -7,7 +7,7 @@ public class Lock implements IFeature {
   private Item key;
 
   public Lock(Item key) {
-    checkIfNull("Key",key);
+    checkIfNull("Key",key,"Lock");
     this.key = key;
   }
 
@@ -19,9 +19,4 @@ public class Lock implements IFeature {
     return NAME;
   }
 
-  private void checkIfNull(String key, java.lang.Object value) {
-    if (value == null) {
-      throw new IllegalArgumentException(key + " can not be null in class Lock");
-    }
-  }
 }

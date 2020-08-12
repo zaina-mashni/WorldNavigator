@@ -8,8 +8,11 @@ public class Locked implements IObjectState {
   static final String NAME = "locked";
 
   @Override
-  public IObjectState handleStateChangeInput(PlayerInfo player, Object object, String command) {
-    if (command.equals("useKey")) {
+  public IObjectState handleStateChangeInput(PlayerInfo player, Object object, String input) {
+    checkIfNull("Player",player,"Locked");
+    checkIfNull("Object",object,"Locked");
+    checkIfNull("Input",input,"Locked");
+    if (input.equals("useKey")) {
       if (player.hasItemInInventory(((Lock) object.getFeature("lock")).getKeyName())) {
         return new Unlocked();
       }
@@ -19,6 +22,9 @@ public class Locked implements IObjectState {
 
   @Override
   public String handleStateSpecificInput(PlayerInfo player, Object object, String input) {
+    checkIfNull("Player",player,"Locked");
+    checkIfNull("Object",object,"Locked");
+    checkIfNull("Input",input,"Locked");
     if(input.equals("check") || input.equals("backward") || input.equals("forward") || input.equals("open") || input.equals("useKey")){
       return object.getName()+" is locked. "+((Lock)object.getFeature("lock")).getKeyName()+" is needed to unlock!";
     }
@@ -30,4 +36,5 @@ public class Locked implements IObjectState {
   public String getName() {
     return NAME;
   }
+
 }

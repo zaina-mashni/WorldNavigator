@@ -9,11 +9,15 @@ import java.util.List;
 
 @Component
 public class CommandService {
+
   public List<ICommand> getAvailableCommands(IPlayerState state) {
+    checkIfNull("State",state);
     return state.getAvailableCommands();
   }
 
   public ICommand getCommand(IPlayerState state, String command) {
+    checkIfNull("State",state);
+    checkIfNull("Command",command);
     List<ICommand> availableCommands = getAvailableCommands(state);
     if (isNumberCommand(command)) {
       int commandIdx = Integer.parseInt(command);
@@ -28,10 +32,12 @@ public class CommandService {
   }
 
   public List<String> splitCommand(String command) {
+    checkIfNull("Command",command);
     return Arrays.asList(command.split(" "));
   }
 
   public boolean isNumberCommand(String command) {
+    checkIfNull("Command",command);
     try {
       Integer.parseInt(command);
       return true;
@@ -41,6 +47,7 @@ public class CommandService {
   }
 
   public String convertToString(List<ICommand> commands) {
+    checkIfNull("Commands",commands);
     StringBuilder stringRepresentation = new StringBuilder();
     String prefix = "";
     int idx = 1;
@@ -54,5 +61,11 @@ public class CommandService {
       return "No commands";
     }
     return stringRepresentation.toString();
+  }
+
+  private void checkIfNull(String key, java.lang.Object value) {
+    if (value == null) {
+      throw new IllegalArgumentException(key + " can not be null in class CommandService");
+    }
   }
 }

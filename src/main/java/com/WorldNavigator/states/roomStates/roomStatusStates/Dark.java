@@ -6,6 +6,8 @@ public class Dark implements IRoomStatusState {
 
   @Override
   public IRoomStatusState handleStateChangeInput(PlayerInfo player, String input) {
+    checkIfNull("Player",player,"Dark");
+    checkIfNull("Input",input,"Dark");
     if (input.equals("useSwitch")) {
       return new Lit();
     }
@@ -14,6 +16,8 @@ public class Dark implements IRoomStatusState {
 
   @Override
   public String handleStateSpecificInput(PlayerInfo player, String input) {
+    checkIfNull("Player",player,"Dark");
+    checkIfNull("Input",input,"Dark");
     if (input.equals("look")
         && player.getInventory().containsItem("flashlight")
         && player.getInventory().getItem("flashlight").getState().getName().equals("switchedOn")) {
@@ -30,4 +34,5 @@ public class Dark implements IRoomStatusState {
   public String getName() {
     return "dark";
   }
+
 }

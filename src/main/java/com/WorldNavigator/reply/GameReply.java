@@ -9,6 +9,20 @@ public class GameReply {
     public boolean isFighting;
     public boolean isPlaying;
     public String status;
+    public String worldName;
+    public boolean isAdmin;
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
+    public void setWorldName(String worldName) {
+        this.worldName = worldName;
+    }
+
+    public String getWorldName() {
+        return worldName;
+    }
 
     public void setStatus(String status) {
         this.status = status;

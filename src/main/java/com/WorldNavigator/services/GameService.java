@@ -5,7 +5,7 @@ import com.WorldNavigator.Direction;
 import com.WorldNavigator.entities.MapInfo;
 import com.WorldNavigator.entities.PlayerInfo;
 import com.WorldNavigator.fights.IFightMode;
-import com.WorldNavigator.GameControl;
+import com.WorldNavigator.entities.GameControl;
 import com.WorldNavigator.reply.DefaultReply;
 import com.WorldNavigator.reply.ListGamesReply;
 import com.WorldNavigator.utils.MapFileDecode;
@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -144,6 +143,8 @@ public class GameService {
       gameReply.setFighting(false);
       gameReply.setPlaying(true);
       gameReply.setStatus(status);
+      gameReply.setAdmin(availableGames.get(player.getWorldName()).getAdmin().getUsername().equals(player.getUsername()));
+      gameReply.setWorldName(player.getWorldName());
       return gameReply;
     } catch (Exception e) {
       return endGameDueToInternalError(player, e);
@@ -160,7 +161,9 @@ public class GameService {
       gameReply.setInventory(player.getInventory().toString());
       gameReply.setFighting(false);
       gameReply.setPlaying(false);
+      gameReply.setAdmin(false);
       gameReply.setStatus(status);
+      gameReply.setWorldName("");
       return gameReply;
     } catch (Exception e) {
       return endGameDueToInternalError(player, e);
@@ -455,6 +458,7 @@ public class GameService {
           .getPlayersInWorld(worldName)
           .forEach(
               player -> {
+                player.setWorld("");
                 GameReply reply = setUpGameReplyForQuitPlayer(player, status);
                 reply.setMessage(message);
                 webSocket.convertAndSend("/socket/start/" + player.getUsername(), reply);

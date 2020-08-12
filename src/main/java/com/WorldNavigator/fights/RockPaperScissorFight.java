@@ -5,7 +5,7 @@ import com.WorldNavigator.commands.Paper;
 import com.WorldNavigator.commands.Rock;
 import com.WorldNavigator.commands.Scissors;
 import com.WorldNavigator.entities.PlayerInfo;
-import com.WorldNavigator.GameControl;
+import com.WorldNavigator.entities.GameControl;
 import com.WorldNavigator.utils.Pair;
 import org.springframework.stereotype.Component;
 

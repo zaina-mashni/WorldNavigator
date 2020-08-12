@@ -10,7 +10,7 @@ import com.WorldNavigator.factories.ItemFactory;
 import com.WorldNavigator.factories.ObjectFactory;
 import com.WorldNavigator.factories.RoomFactory;
 import com.WorldNavigator.features.*;
-import com.WorldNavigator.GameControl;
+import com.WorldNavigator.entities.GameControl;
 import com.WorldNavigator.services.GameService;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -18,7 +18,6 @@ import org.springframework.core.io.support.ResourcePatternResolver;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 

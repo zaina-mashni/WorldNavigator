@@ -3,7 +3,7 @@ package com.WorldNavigator.services;
 import com.WorldNavigator.commands.ICommand;
 import com.WorldNavigator.entities.PlayerInfo;
 import com.WorldNavigator.fights.IFightMode;
-import com.WorldNavigator.GameControl;
+import com.WorldNavigator.entities.GameControl;
 import com.WorldNavigator.fights.RockPaperScissorFight;
 import org.springframework.stereotype.Component;
 

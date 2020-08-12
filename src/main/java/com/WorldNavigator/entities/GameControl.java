@@ -1,4 +1,4 @@
-package com.WorldNavigator;
+package com.WorldNavigator.entities;
 
 import com.WorldNavigator.entities.*;
 import com.WorldNavigator.entities.Object;

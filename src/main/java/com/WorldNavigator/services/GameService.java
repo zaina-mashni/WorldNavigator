@@ -304,7 +304,7 @@ public class GameService {
         reply.setMessage(
             oppositePlayer
                 .getCurrentRoom()
-                .handleAvailabilityStateSpecificInput(player, "forward"));
+                .handlePostAvailabilityStateChangeInput(player, "forward"));
         webSocket.convertAndSend("/socket/start/" + oppositePlayer.getUsername(), reply);
         PlayerInfo winner =
             playerService.getRichestPlayer(playerService.getPlayersInSameRoomAsPlayer(player));

@@ -38,6 +38,6 @@ public class Check implements ICommand {
         return object.getFeature("container").toString();
       }
     }
-    return object.handleStateSpecificInput(player, "check");
+    return object.handlePostStateChangeInput(player, "check");
   }
 }

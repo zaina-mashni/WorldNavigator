@@ -17,7 +17,7 @@ public class Opened implements  IObjectState {
     }
 
     @Override
-    public String handleStateSpecificInput(PlayerInfo player, Object object, String input) {
+    public String handlePostStateChangeInput(PlayerInfo player, Object object, String input) {
         checkIfNull("Player",player,"Opened");
         checkIfNull("Object",object,"Opened");
         checkIfNull("Input",input,"Opened");

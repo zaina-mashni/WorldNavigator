@@ -29,9 +29,9 @@ public class ItemBehaviour {
     state = state.handleStateChangeInput(input);
   }
 
-  public String handleStateSpecificInput(String input) {
+  public String handlePostStateChangeInput(String input) {
     checkIfNull("Input", input);
-    return state.handleStateSpecificInput(input);
+    return state.handlePostStateChangeInput(input);
   }
 
   private void checkIfNull(String key, java.lang.Object value) {

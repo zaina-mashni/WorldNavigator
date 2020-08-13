@@ -28,6 +28,6 @@ public class Look implements ICommand {
                 .equals("switchedOn"))) {
       player.pushState(new WallLevel());
     }
-    return player.getCurrentRoom().handleStatusStateSpecificInput(player, getName());
+    return player.getCurrentRoom().handlePostStatusStateChangeInput(player, getName());
   }
 }

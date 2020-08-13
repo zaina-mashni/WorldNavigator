@@ -52,10 +52,10 @@ public class Object {
     behaviour.handleStateChangeInput(player, this, input);
   }
 
-  public String handleStateSpecificInput(PlayerInfo player, String input) {
+  public String handlePostStateChangeInput(PlayerInfo player, String input) {
     checkIfNull("Player", player);
     checkIfNull("Input", input);
-    return behaviour.handleStateSpecificInput(player, this, input);
+    return behaviour.handlePostStateChangeInput(player, this, input);
   }
 
   private void checkIfNull(String key, java.lang.Object value) {

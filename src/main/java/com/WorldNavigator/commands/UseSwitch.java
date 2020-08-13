@@ -19,6 +19,6 @@ public class UseSwitch implements ICommand {
       return ErrorMessages.invalidInput;
     }
     player.getCurrentRoom().handleStatusStateChangeInput(player, getName());
-    return player.getCurrentRoom().handleStatusStateSpecificInput(player, getName());
+    return player.getCurrentRoom().handlePostStatusStateChangeInput(player, getName());
   }
 }

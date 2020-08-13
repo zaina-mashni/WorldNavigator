@@ -24,6 +24,6 @@ public class UseKey implements ICommand {
       return "You are not facing a " + splitCommand.get(1) + "!";
     }
     object.handleStateChangeInput(player, getName());
-    return object.handleStateSpecificInput(player, getName());
+    return object.handlePostStateChangeInput(player, getName());
   }
 }

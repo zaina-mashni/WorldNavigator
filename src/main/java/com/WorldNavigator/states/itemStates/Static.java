@@ -14,7 +14,7 @@ public class Static implements IItemState {
     }
 
     @Override
-    public String handleStateSpecificInput(String input) {
+    public String handlePostStateChangeInput(String input) {
         checkIfNull("Input",input,"ItemState.Static");
         //no current commands on static state items
         return "";

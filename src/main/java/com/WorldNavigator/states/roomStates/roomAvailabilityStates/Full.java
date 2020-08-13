@@ -14,7 +14,7 @@ public class Full implements IRoomAvailabilityState {
     }
 
     @Override
-    public String handleStateSpecificInput(PlayerInfo player, String input) {
+    public String handlePostStateChangeInput(PlayerInfo player, String input) {
         checkIfNull("Player",player,"Full");
         checkIfNull("Input",input,"Full");
         if(input.equals("forward") || input.equals("backward") || input.equals("move")){

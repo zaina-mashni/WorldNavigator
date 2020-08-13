@@ -16,7 +16,7 @@ public class SwitchedOn implements IItemState {
     }
 
     @Override
-    public String handleStateSpecificInput(String input) {
+    public String handlePostStateChangeInput(String input) {
         checkIfNull("Input",input,"SwitchedOn");
         if(input.equals("useFlashlight")){
             return "Flashlight is on!";

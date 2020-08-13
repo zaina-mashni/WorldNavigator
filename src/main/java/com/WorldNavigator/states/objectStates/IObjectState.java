@@ -6,7 +6,7 @@ import com.WorldNavigator.entities.PlayerInfo;
 public interface IObjectState {
   IObjectState handleStateChangeInput(PlayerInfo player, Object object, String input);
 
-  String handleStateSpecificInput(PlayerInfo player, Object object, String input);
+  String handlePostStateChangeInput(PlayerInfo player, Object object, String input);
 
   String getName();
 

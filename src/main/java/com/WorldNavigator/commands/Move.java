@@ -40,10 +40,10 @@ public class Move implements ICommand {
         oppositeRoom.handleAvailabilityStateChangeInput(player, getName());
         player.setCurrentRoom(oppositeRoom);
         System.out.println("IN MOVE second "+player.getCurrentRoom().getAvailabilityState().getName());
-        return player.getCurrentRoom().handleAvailabilityStateSpecificInput(player, getName());
+        return player.getCurrentRoom().handlePostAvailabilityStateChangeInput(player, getName());
       }
       return "Two players are currently fighting in this room! return when it's over.";
     }
-    return passageObject.handleStateSpecificInput(player, getName());
+    return passageObject.handlePostStateChangeInput(player, getName());
   }
 }

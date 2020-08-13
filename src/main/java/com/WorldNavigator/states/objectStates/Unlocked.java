@@ -20,7 +20,7 @@ public class Unlocked implements  IObjectState {
     }
 
     @Override
-    public String handleStateSpecificInput(PlayerInfo player, Object object, String input) {
+    public String handlePostStateChangeInput(PlayerInfo player, Object object, String input) {
         checkIfNull("Player",player,"Unlocked");
         checkIfNull("Object",object,"Unlocked");
         checkIfNull("Input",input,"Unlocked");

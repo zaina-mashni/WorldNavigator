@@ -14,7 +14,7 @@ public class Empty implements IRoomAvailabilityState {
     }
 
     @Override
-    public String handleStateSpecificInput(PlayerInfo player, String input) {
+    public String handlePostStateChangeInput(PlayerInfo player, String input) {
         checkIfNull("Player",player,"Empty");
         checkIfNull("Input",input,"Empty");
         //no current commands are executed on empty room

@@ -58,16 +58,16 @@ public class Room {
     statusState = statusState.handleStateChangeInput(player, input);
   }
 
-  public String handleStatusStateSpecificInput(PlayerInfo player, String input) {
+  public String handlePostStatusStateChangeInput(PlayerInfo player, String input) {
     checkIfNull("Player", player);
     checkIfNull("Input", input);
-    return statusState.handleStateSpecificInput(player, input);
+    return statusState.handlePostStateChangeInput(player, input);
   }
 
-  public String handleAvailabilityStateSpecificInput(PlayerInfo player, String input) {
+  public String handlePostAvailabilityStateChangeInput(PlayerInfo player, String input) {
     checkIfNull("Player", player);
     checkIfNull("Input", input);
-    return availabilityStates.peek().handleStateSpecificInput(player, input);
+    return availabilityStates.peek().handlePostStateChangeInput(player, input);
   }
 
   public void handleAvailabilityStateChangeInput(PlayerInfo player, String input) {

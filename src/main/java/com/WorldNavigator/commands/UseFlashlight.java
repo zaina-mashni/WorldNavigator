@@ -23,6 +23,6 @@ public class UseFlashlight implements ICommand {
     }
 
     player.getItemFromInventory("flashlight").handleStateChangeInput(getName());
-    return player.getItemFromInventory("flashlight").handleStateSpecificInput(getName());
+    return player.getItemFromInventory("flashlight").handlePostStateChangeInput(getName());
   }
 }

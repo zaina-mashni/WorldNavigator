@@ -5,7 +5,7 @@ public interface IItemState {
 
   IItemState handleStateChangeInput(String input);
 
-  String handleStateSpecificInput(String input);
+  String handlePostStateChangeInput(String input);
 
   default void checkIfNull(String key, java.lang.Object value, String className) {
     if (value == null) {

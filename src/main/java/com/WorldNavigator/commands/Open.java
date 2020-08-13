@@ -25,6 +25,6 @@ public class Open implements ICommand {
       return "You are not facing a " + splitCommand.get(1) + "!";
     }
     object.handleStateChangeInput(player, "open");
-    return object.handleStateSpecificInput(player, "open");
+    return object.handlePostStateChangeInput(player, "open");
   }
 }

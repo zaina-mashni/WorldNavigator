@@ -12,7 +12,7 @@ public class NoSwitch implements IRoomStatusState {
     }
 
     @Override
-    public String handleStateSpecificInput(PlayerInfo player, String input) {
+    public String handlePostStateChangeInput(PlayerInfo player, String input) {
         checkIfNull("Player",player,"NoSwitch");
         checkIfNull("Input",input,"NoSwitch");
         if (input.equals("look")){

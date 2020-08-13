@@ -12,7 +12,7 @@ public class ExitRoom implements IRoomStatusState {
     }
 
     @Override
-    public String handleStateSpecificInput(PlayerInfo player, String input) {
+    public String handlePostStateChangeInput(PlayerInfo player, String input) {
         checkIfNull("Player",player,"ExitRoom");
         checkIfNull("Input",input,"ExitRoom");
         if(input.equals("forward") || input.equals("backward")){

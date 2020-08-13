@@ -34,9 +34,9 @@ public class Item {
     behaviour.handleStateChangeInput(input);
   }
 
-  public String handleStateSpecificInput(String input) {
+  public String handlePostStateChangeInput(String input) {
     checkIfNull("Input", input);
-    return behaviour.handleStateSpecificInput(input);
+    return behaviour.handlePostStateChangeInput(input);
   }
 
   private void checkIfNull(String key, java.lang.Object value) {

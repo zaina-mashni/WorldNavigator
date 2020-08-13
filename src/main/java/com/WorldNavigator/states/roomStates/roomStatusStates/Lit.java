@@ -14,7 +14,7 @@ public class Lit implements IRoomStatusState {
     }
 
     @Override
-    public String handleStateSpecificInput(PlayerInfo player, String input) {
+    public String handlePostStateChangeInput(PlayerInfo player, String input) {
         checkIfNull("Player",player,"Lit");
         checkIfNull("Input",input,"Lit");
         if (input.equals("look")){

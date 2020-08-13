@@ -15,7 +15,7 @@ public class Dark implements IRoomStatusState {
   }
 
   @Override
-  public String handleStateSpecificInput(PlayerInfo player, String input) {
+  public String handlePostStateChangeInput(PlayerInfo player, String input) {
     checkIfNull("Player",player,"Dark");
     checkIfNull("Input",input,"Dark");
     if (input.equals("look")

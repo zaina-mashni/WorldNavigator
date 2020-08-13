@@ -27,6 +27,6 @@ public class Trade implements ICommand {
     }
 
     player.pushState(new TradeLevel(tradeObject));
-    return tradeObject.handleStateSpecificInput(player, "check");
+    return tradeObject.handlePostStateChangeInput(player, "check");
   }
 }

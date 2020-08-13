@@ -57,11 +57,11 @@ public class ObjectBehaviour {
     state = state.handleStateChangeInput(player, object, input);
   }
 
-  public String handleStateSpecificInput(PlayerInfo player, Object object, String input) {
+  public String handlePostStateChangeInput(PlayerInfo player, Object object, String input) {
     checkIfNull("Player",player);
     checkIfNull("Object",object);
     checkIfNull("Input",input);
-    return state.handleStateSpecificInput(player, object, input);
+    return state.handlePostStateChangeInput(player, object, input);
   }
 
   private void checkIfNull(String key, java.lang.Object value) {

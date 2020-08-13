@@ -16,12 +16,12 @@ public class Static implements  IObjectState {
     }
 
     @Override
-    public String handleStateSpecificInput(PlayerInfo player, Object object, String input) {
+    public String handlePostStateChangeInput(PlayerInfo player, Object object, String input) {
         checkIfNull("Player",player,"objectStates.Static");
         checkIfNull("Object",object,"objectStates.Static");
         checkIfNull("Input",input,"objectStates.Static");
         if(input.equals("check") && object.hasFeature("container")){
-            return ((Container)object.getFeature("container")).toString();
+            return object.getFeature("container").toString();
         }
         else if( input.equals("open")){
             return "You cant't open a "+object.getName()+"!";
